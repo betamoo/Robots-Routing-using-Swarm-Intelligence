@@ -46,6 +46,7 @@
     <Compile Include="Agent.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="class_1.cs" />
+    <Compile Include="Class_2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClass.cs" />
   </ItemGroup>
