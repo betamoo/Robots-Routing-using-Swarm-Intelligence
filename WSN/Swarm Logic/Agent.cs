@@ -7,5 +7,6 @@ namespace Swarm_Logic
 {
     class Agent
     {
+        
     }
 }
