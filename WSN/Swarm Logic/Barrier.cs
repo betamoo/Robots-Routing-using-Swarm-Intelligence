@@ -12,6 +12,14 @@ namespace Swarm_Logic
         public double X2 { set; get; }
         public double Y2 { set; get; }
 
+        public Barrier(double X1, double Y1,double X2 ,double Y2 )
+        {
+            this.X1 = X1;
+            this.Y1 = Y1;
+            this.X2 = X2;
+            this.Y2 = Y2;
+        }
+
         public bool IsIntersected(double startX, double startY, double endX, double endY)
         {
             // To be check later..
