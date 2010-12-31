@@ -7,10 +7,10 @@ namespace Swarm_Logic
 {
     public class Agent
     {
-        const double W = 0.3;
-        const double P = 0.4;
-        const double G = 0.3;
-        const double MaxVelocity = 20.0;
+        const double W = -0.4349;
+        const double P = -0.6504;
+        const double G = 2.2073;
+        const double MaxVelocity = 15.0;
         //const double MaxAcceleration=1.0;
 
         static Random r = new Random();
@@ -71,6 +71,32 @@ namespace Swarm_Logic
             V = Math.Min(V, MaxVelocity);
             VX *= V;
             VY *= V;
+        }
+
+        public void TakeDecision2()
+        {
+            double temp0 = Math.Sqrt(VX * VX + VY * VY);
+            double temp1 = Math.Sqrt((MyBestX - PX) * (MyBestX - PX) + (MyBestY - PY) * (MyBestY - PY));
+            double temp2 = Math.Sqrt((OthersBestX - PX) * (OthersBestX - PX) + (OthersBestY - PY) * (OthersBestY - PY));
+
+            if (temp0 == 0)
+                temp0 = 1;
+            if (temp1 == 0)
+                temp1 = 1;
+            if (temp1 == 0)
+                temp1 = 1;
+
+
+            VX = W * VX / temp0 + r.NextDouble() * P * (MyBestX - PX) / temp1 + r.NextDouble() * G * (OthersBestX - PX) / temp2;
+            VY = W * VY / temp0 + r.NextDouble() * P * (MyBestY - PY) / temp1 + r.NextDouble() * G * (OthersBestY - PY) / temp2;
+
+
+            double V = Math.Sqrt(VX * VX + VY * VY);
+            if (V == 0)
+                V = 1;
+
+            VX = MaxVelocity * VX / V;
+            VY = MaxVelocity * VY / V;
         }
 
         public void AfterMoving()
