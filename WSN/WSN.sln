@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enviroment GUI", "Enviromen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Swarm Logic", "Swarm Logic\Swarm Logic.csproj", "{0AC614E3-33A9-47C2-8E4B-75F6BE1BB686}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UIDemo", "UIDemo\UIDemo.csproj", "{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 5
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs22
 		SccLocalPath0 = .
@@ -22,6 +24,9 @@ Global
 		SccProjectUniqueName3 = Swarm\u0020Logic\\Swarm\u0020Logic.csproj
 		SccProjectName3 = Swarm\u0020Logic
 		SccLocalPath3 = Swarm\u0020Logic
+		SccProjectUniqueName4 = UIDemo\\UIDemo.csproj
+		SccProjectName4 = UIDemo
+		SccLocalPath4 = UIDemo
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +67,16 @@ Global
 		{0AC614E3-33A9-47C2-8E4B-75F6BE1BB686}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{0AC614E3-33A9-47C2-8E4B-75F6BE1BB686}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0AC614E3-33A9-47C2-8E4B-75F6BE1BB686}.Release|x86.ActiveCfg = Release|Any CPU
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Debug|x86.ActiveCfg = Debug|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Debug|x86.Build.0 = Debug|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Release|Any CPU.ActiveCfg = Release|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Release|Mixed Platforms.Build.0 = Release|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Release|x86.ActiveCfg = Release|x86
+		{0CD4F414-F6E9-46C9-9EBD-ACFCB0A08D92}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

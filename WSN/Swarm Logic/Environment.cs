@@ -22,7 +22,7 @@ namespace Swarm_Logic
                 (SendingAgent.PX - ReceivingAgent.PX) * (SendingAgent.PX - ReceivingAgent.PX) + (SendingAgent.PY - ReceivingAgent.PY) * (SendingAgent.PY - ReceivingAgent.PY) <= ReceiveRange * ReceiveRange;
         }
 
-        private void Update()
+        public void Update()
         {
             foreach (Agent agent in Agents)
             {
