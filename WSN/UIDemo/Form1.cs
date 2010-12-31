@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Swarm_Logic;
 
@@ -23,20 +24,21 @@ namespace UIDemo
 
         public Form1()
         {
-            br = new Barrier[6];
-            br[0] = new Barrier(0,0,MaxX,0);
-            br[1] = new Barrier(MaxX, 0, MaxX, MaxY);
-            br[2] = new Barrier(MaxX, MaxY, 0, MaxY);
-            br[3] = new Barrier(0, MaxY, 0, 0);
+            br = new Swarm_Logic.Barrier[6];
+            br[0] = new Swarm_Logic.Barrier(0, 0, MaxX, 0);
+            br[1] = new Swarm_Logic.Barrier(MaxX, 0, MaxX, MaxY);
+            br[2] = new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY);
+            br[3] = new Swarm_Logic.Barrier(0, MaxY, 0, 0);
 
-            br[4] = new Barrier(0, 200, MaxX, 200);
-            br[5] = new Barrier(200, 0, 200, MaxY);
+            br[4] = new Swarm_Logic.Barrier(0, 200, MaxX, 201);
+            br[5] = new Swarm_Logic.Barrier(200, 0, 251, MaxY);
 
             InitializeComponent();
 
-            rs = new GaussianFunctionSource(SrcX,SrcY);
+            rs = new GaussianFunctionSource(SrcX,SrcY,1000.0);
             
             env = new Swarm_Logic.Environment(10, MaxX, MaxY, br, rs);
+            env.OnIterationEnd += RefreshMe;
         }
 
         private System.Drawing.Graphics g;
@@ -46,7 +48,7 @@ namespace UIDemo
 
         Swarm_Logic.Environment env;
         GaussianFunctionSource rs;
-        Barrier[] br;
+        Swarm_Logic.Barrier[] br;
 
         bool b;
 
@@ -60,7 +62,7 @@ namespace UIDemo
         private void Run_Click(object sender, EventArgs e)
         {
             pictureBox1.Refresh();
-            env.Run(200);
+            env.Run(1);
             drawAgents();
             drawSource();
             drawBarr();
@@ -86,10 +88,23 @@ namespace UIDemo
 
         void drawBarr()
         {
-            foreach (Barrier b in br)
+            foreach (Swarm_Logic.Barrier b in br)
             {
                 g.DrawLine(pen1, new Point((int)b.X1, (int)b.Y1), new Point((int)b.X2,(int)b.Y2));
             }
+        }
+
+        void RefreshMe()
+        {
+            Thread.Sleep(20);
+            pictureBox1.Refresh();
+            drawAgents();
+            drawSource();
+            drawBarr();
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            env.Run(10000);
         }
 
     }
