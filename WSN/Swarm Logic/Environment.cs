@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Swarm_Logic
 {
+
     public class Environment
     {
         const double ReceiveRange = 5.0;
@@ -85,6 +86,7 @@ namespace Swarm_Logic
             for (int i = 0; i < NumberOfIterations; i++)
             {
                 Update();
+
             }
         }
 
