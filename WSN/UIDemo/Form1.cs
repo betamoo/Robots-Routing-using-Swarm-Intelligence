@@ -15,8 +15,8 @@ namespace UIDemo
     {
 
 
-        public static int SrcX = 50;
-        public static int SrcY = 50;
+        public static int SrcX = 150;
+        public static int SrcY = 150;
 
         public static int MaxX = 400;
         public static int MaxY = 400;
