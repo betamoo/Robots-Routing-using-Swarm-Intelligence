@@ -37,7 +37,7 @@ namespace UIDemo
 
             rs = new GaussianFunctionSource(SrcX,SrcY,1000.0);
             
-            env = new Swarm_Logic.Environment(10, MaxX, MaxY, br, rs);
+            env = new Swarm_Logic.Environment(20, MaxX, MaxY, br, rs);
             env.OnIterationEnd += RefreshMe;
         }
 
