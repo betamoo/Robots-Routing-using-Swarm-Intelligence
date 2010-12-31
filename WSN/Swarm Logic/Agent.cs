@@ -101,8 +101,35 @@ namespace Swarm_Logic
 
         public void TakeRandomDecision()
         {
-            VX = -(r.NextDouble()) * VX;
-            VY = -(r.NextDouble()) * VY;
+           // VX = -(r.NextDouble()) * VX;
+           // VY = -(r.NextDouble()) * VY;
+
+            double dx = VX - PX;
+            double dy = VY - PY;
+
+            double rdir = new Random().NextDouble();
+
+            double theta = Math.Atan(dy/dx);
+
+            if (rdir > 0.5)
+                theta *= 1;
+
+            double mag = Math.Sqrt((dx * dx) + (dy * dy));
+
+            double dxn = -dy;
+            double dyn = dx;
+
+            VX = PX + (dxn * mag);
+            VY = PY + (dyn * mag);
+
+           double V = Math.Sqrt(VX * VX + VY * VY);
+            VX = VX / V;
+            VY = VY / V;
+
+            V = Math.Min(V, MaxVelocity);
+            VX *= V;
+            VY *= V;
+
         }
         public void AfterMoving()
         {
