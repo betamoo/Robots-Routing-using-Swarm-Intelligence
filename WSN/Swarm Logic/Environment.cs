@@ -9,7 +9,7 @@ namespace Swarm_Logic
     {
         public delegate void VoidFunction();
 
-        const double ReceiveRange = 600.0;
+        const double ReceiveRange = 30.0;
 
         public RadiationSource Source;
 
@@ -26,20 +26,31 @@ namespace Swarm_Logic
         {
             foreach (Agent agent in Agents)
             {
+                int Try = 3;
                 agent.TakeDecision();
                 double startX = agent.PX;
                 double startY = agent.PY;
                 double endX = agent.PX + agent.VX;
                 double endY = agent.PY + agent.VY;
-                foreach (Barrier barrier in Barriers)
+                for (int i = 0; i < Barriers.Length;i++ )
                 {
-                    if (barrier.IsIntersected(startX, startY, endX, endY))
+                    if (Barriers[i].IsIntersected(startX, startY, endX, endY))
                     {
-                        endX = agent.PX;
-                        endY = agent.PY;
-                        agent.VX = 0;
-                        agent.VY = 0;
-                        break;
+                        if (Try < 0)
+                        {
+                            endX = agent.PX ;
+                            endY = agent.PY ;
+                            agent.VX = 0;
+                            agent.VY = 0;
+                        }
+                        else
+                        {
+                            Try--;
+                            agent.TakeRandomDecision();
+                            endX = agent.PX + agent.VX;
+                            endY = agent.PY + agent.VY;
+                            i = 0;
+                        }
                     }
                 }
                 agent.PX = endX;

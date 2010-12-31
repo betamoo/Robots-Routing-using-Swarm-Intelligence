@@ -10,7 +10,7 @@ namespace Swarm_Logic
         const double W = -0.4349;
         const double P = -0.6504;
         const double G = 2.2073;
-        const double MaxVelocity = 15.0;
+        const double MaxVelocity = 5.0;
         //const double MaxAcceleration=1.0;
 
         static Random r = new Random();
@@ -99,6 +99,11 @@ namespace Swarm_Logic
             VY = MaxVelocity * VY / V;
         }
 
+        public void TakeRandomDecision()
+        {
+            VX = -(r.NextDouble()) * VX;
+            VY = -(r.NextDouble()) * VY;
+        }
         public void AfterMoving()
         {
             double CurrentRadiation = RadiationFunction(PX, PY);
