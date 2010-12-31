@@ -8,21 +8,18 @@ namespace Swarm_Logic
 
     public class Environment
     {
-        //public double SourceX { get; set; }
-        //public double SourceY { get; set; }
-
         public RadiationSource Source;
 
         public Agent[] Agents;
         public Barrier[] Barriers;
 
 
-        public void Initialize(int NumberOfAgents, double BoundaryX, double BoundaryY, Barrier[] Barriers, RadiationSource Source)
+        public Environment(int NumberOfAgents, double BoundaryX, double BoundaryY, Barrier[] Barriers, RadiationSource Source)
         {
-            NumberGenerator PXRandomGenerator = new UniformRandom(0.0, BoundaryX);
-            NumberGenerator PYRandomGenerator = new UniformRandom(0.0, BoundaryY);
-            NumberGenerator VXRandomGenerator = new UniformRandom(-BoundaryX, BoundaryX);
-            NumberGenerator VYRandomGenerator = new UniformRandom(-BoundaryY, BoundaryY);
+            NumberGenerator PXRandomGenerator = new UniformRandom(0.0, BoundaryX,(int)(DateTime.Now.Ticks));
+            NumberGenerator PYRandomGenerator = new UniformRandom(0.0, BoundaryY, (int)(DateTime.Now.Ticks+1));
+            NumberGenerator VXRandomGenerator = new UniformRandom(-BoundaryX, BoundaryX, (int)(DateTime.Now.Ticks+2));
+            NumberGenerator VYRandomGenerator = new UniformRandom(-BoundaryY, BoundaryY, (int)(DateTime.Now.Ticks+3));
 
             this.Source = Source;
             this.Barriers = Barriers;

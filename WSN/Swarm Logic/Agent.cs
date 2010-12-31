@@ -15,6 +15,7 @@ namespace Swarm_Logic
 
         public double BestX { set; get; }
         public double BestY { set; get; }
+        public double BestValue { set; get; }
 
         //const double MaxVelocity=10.0;
         //const double MaxAcceleration=1.0;
@@ -25,11 +26,12 @@ namespace Swarm_Logic
         {
             this.PX = PX;
             this.PY = PY;
+            this.RadiationFunction = RadiationFunction;
             this.BestX = PX;
             this.BestY = PY;
+            this.BestValue = RadiationFunction(PX,PY);
             this.VX = VX;
             this.VY = VY;
-            this.RadiationFunction = RadiationFunction;
         }
 
         public void ApplyVelocity()
