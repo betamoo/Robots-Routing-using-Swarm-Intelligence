@@ -9,9 +9,9 @@ namespace Swarm_Logic
 
     public struct AgentMessage
     {
-        public double PX { set; get; }
-        public double PY { set; get; }
-        public double Value { set; get; }
+        public double PX;
+        public double PY;
+        public double Value;
 
         public AgentMessage(double PX, double PY, double Value)
         {

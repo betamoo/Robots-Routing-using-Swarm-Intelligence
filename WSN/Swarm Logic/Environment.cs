@@ -14,9 +14,10 @@ namespace Swarm_Logic
         public Agent[] Agents;
         public Barrier[] Barriers;
 
-        private bool WillTheMessageArrive(double X1, double Y1, double X2, double Y2)
+        private bool WillTheAgentReceiveTheMessage(Agent SendingAgent,Agent ReceivingAgent)
         {
-            return (X1 - X2) * (X1 - X2) + (Y1 - Y2) * (Y1 - Y2) <= ReceiveRange * ReceiveRange;
+            return (SendingAgent != ReceivingAgent) && 
+                (SendingAgent.PX - ReceivingAgent.PX) * (SendingAgent.PX - ReceivingAgent.PX) + (SendingAgent.PY - ReceivingAgent.PY) * (SendingAgent.PY - ReceivingAgent.PY) <= ReceiveRange * ReceiveRange;
         }
 
         public Environment(int NumberOfAgents, double BoundaryX, double BoundaryY, Barrier[] Barriers, RadiationSource Source)
@@ -70,7 +71,7 @@ namespace Swarm_Logic
         {
             for (int i = 0; i < Agents.Length; i++)
             {
-                if (SendingAgent != Agents[i] && WillTheMessageArrive(SendingAgent.PX, SendingAgent.PY, Agents[i].PX, Agents[i].PY))
+                if (WillTheAgentReceiveTheMessage(SendingAgent,Agents[i]))
                 {
                     Agents[i].Receive(Message);
                 }
