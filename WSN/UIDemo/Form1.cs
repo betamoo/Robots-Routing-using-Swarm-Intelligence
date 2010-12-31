@@ -13,10 +13,10 @@ namespace UIDemo
 {
     public partial class Form1 : Form
     {
-        static double[] SourceXs = new double[] { 5,200};
-        static double[] SourceYs = new double[] {5, 150};
-        static double[] SourceAs = new double[] { 1,1 };
-        static double[] SourceBs = new double[] { 1000,1000 };
+        static double[] SourceXs = new double[] { 5,200,5};
+        static double[] SourceYs = new double[] {5, 150,180};
+        static double[] SourceAs = new double[] { 1,1 ,1};
+        static double[] SourceBs = new double[] { 1000,1000 ,1000};
 
 
         public static int MaxX = 400;
@@ -40,7 +40,7 @@ namespace UIDemo
 
             rs = new MultipleGaussianFunctionSources(SourceXs,SourceYs,SourceAs,SourceBs);
             
-            env = new Swarm_Logic.Environment(29, MaxX, MaxY, br, rs);
+            env = new Swarm_Logic.Environment(25, MaxX, MaxY, br, rs);
             env.OnIterationEnd += RefreshMe;
         }
 
