@@ -5,10 +5,18 @@ using System.Text;
 
 namespace Swarm_Logic
 {
+    /// <summary>
+    /// An interface for the classes that implements random number generators.
+    /// It must contain a function that returns the next random double number.
+    /// </summary>
     public interface NumberGenerator
     {
         double NextDouble();
     }
+
+    /// <summary>
+    /// This class implements a uniform random generator.
+    /// </summary>
     public class UniformRandom : NumberGenerator
     {
         double Min;
@@ -35,6 +43,10 @@ namespace Swarm_Logic
             return MyUniformRandom.NextDouble() * (Max - Min) + Min;
         }
     }
+
+    /// <summary>
+    /// This class implements an exponintial random generator.
+    /// </summary>
     public class ExponintialRandom : NumberGenerator
     {
         double Mean;
@@ -58,6 +70,10 @@ namespace Swarm_Logic
             return -Math.Log(UniformRandom.NextDouble()) * Mean;
         }
     }
+
+    /// <summary>
+    /// This class implements a normal random generator.
+    /// </summary>
     public class NormalRandom : NumberGenerator
     {
         double Mean;
