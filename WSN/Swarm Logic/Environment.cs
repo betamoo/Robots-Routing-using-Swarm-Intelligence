@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 using System.Text;
 
 namespace Swarm_Logic
@@ -9,7 +9,7 @@ namespace Swarm_Logic
     {
         public delegate void VoidFunction();
 
-        const double ReceiveRange = 30.0;
+        const double ReceiveRange = 600.0;
 
         public RadiationSource Source;
 
