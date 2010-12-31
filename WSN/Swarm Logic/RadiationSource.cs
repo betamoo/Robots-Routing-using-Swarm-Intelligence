@@ -91,4 +91,31 @@ namespace Swarm_Logic
 
     }
 
+    public class MultipleGaussianFunctionSources : RadiationSource
+    {
+        double[] SourceXs;
+        double[] SourceYs;
+        double[] SourceAs;
+        double[] SourceBs;
+
+        public MultipleGaussianFunctionSources(double[] SourceXs,double[] SourceYs,double[] SourceAs,double[] SourceBs)
+        {
+            this.SourceXs = SourceXs;
+            this.SourceYs = SourceYs;
+            this.SourceAs = SourceAs;
+            this.SourceBs = SourceBs;
+        }
+
+        public double GetRadiation(double PX, double PY)
+        {
+            double Sum = 0;
+            for (int i = 0; i < SourceXs.Length; i++)
+            {
+                double Magnitude = SourceAs[i] * Math.Exp(-0.5 * ((SourceXs[i] - PX) * (SourceXs[i] - PX)  + (SourceYs[i] - PY) * (SourceYs[i] - PY) / SourceBs[i]));
+                Sum += Magnitude;
+            }
+            return Sum;
+        }
+
+    }
 }
