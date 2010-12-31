@@ -15,8 +15,11 @@ namespace UIDemo
     {
 
 
-        public static int SrcX = 150;
-        public static int SrcY = 150;
+        public static int SrcX1 = 250;
+        public static int SrcY1 = 250;
+
+        public static int SrcX2 = 50;
+        public static int SrcY2 = 50;
 
         public static int MaxX = 400;
         public static int MaxY = 400;
@@ -30,12 +33,12 @@ namespace UIDemo
             br[2] = new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY);
             br[3] = new Swarm_Logic.Barrier(0, MaxY, 0, 0);
 
-            br[4] = new Swarm_Logic.Barrier(0, 200, MaxX, 201);
+            br[4] = new Swarm_Logic.Barrier(50, 100, 100, 50);
             br[5] = new Swarm_Logic.Barrier(200, 0, 251, MaxY);
 
             InitializeComponent();
 
-            rs = new GaussianFunctionSource(SrcX,SrcY,1000.0);
+            rs = new DoubleGaussianFunctionSources(SrcX1, SrcY1, 1, 1000, 1000, SrcX1, SrcY1, 1, 1000.0, 1000);
             
             env = new Swarm_Logic.Environment(20, MaxX, MaxY, br, rs);
             env.OnIterationEnd += RefreshMe;
@@ -47,7 +50,8 @@ namespace UIDemo
 
 
         Swarm_Logic.Environment env;
-        GaussianFunctionSource rs;
+        DoubleGaussianFunctionSources rs;
+
         Swarm_Logic.Barrier[] br;
 
         bool b;
@@ -65,6 +69,7 @@ namespace UIDemo
             env.Run(1);
             drawAgents();
             drawSource();
+            drawSource2();
             drawBarr();
         }
 
@@ -83,7 +88,12 @@ namespace UIDemo
 
         void drawSource()
         {
-            g.DrawRectangle(pen2, new Rectangle(new Point(SrcX,SrcY), new Size(5, 5)));
+            g.DrawRectangle(pen2, new Rectangle(new Point(SrcX1,SrcY1), new Size(5, 5)));
+        }
+
+        void drawSource2()
+        {
+            g.DrawRectangle(pen2, new Rectangle(new Point(SrcX2, SrcY2), new Size(5, 5)));
         }
 
         void drawBarr()
