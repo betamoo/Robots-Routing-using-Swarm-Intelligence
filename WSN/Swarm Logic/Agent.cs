@@ -7,10 +7,10 @@ namespace Swarm_Logic
 {
     public class Agent
     {
-        const double W = 0.5;
-        const double P = 0.5;
-        const double G = 0.5;
-        const double MaxVelocity = 10.0;
+        const double W = 0.3;
+        const double P = 0.4;
+        const double G = 0.3;
+        const double MaxVelocity = 20.0;
         //const double MaxAcceleration=1.0;
 
         static Random r = new Random();
@@ -62,7 +62,7 @@ namespace Swarm_Logic
         public void TakeDecision()
         {
             VX = W * VX + r.NextDouble() * P * (MyBestX - PX) + r.NextDouble() * G * (OthersBestX - PX);
-            VY = W * VY + r.NextDouble()*P * (MyBestY - PY) + r.NextDouble()*G * (OthersBestY - PY);
+            VY = W * VY + r.NextDouble() * P * (MyBestY - PY) + r.NextDouble() * G * (OthersBestY - PY);
 
             double V = Math.Sqrt(VX * VX + VY * VY);
             VX = VX / V;

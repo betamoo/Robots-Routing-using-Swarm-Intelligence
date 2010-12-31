@@ -32,7 +32,7 @@ namespace Swarm_Logic
             double C2 = A2 * startX + B2 * startY;
 
             double det = A1 * B2 - A2 * B1;
-            if (det == 0)
+            if (Math.Abs( det) <=double.Epsilon)
                 return false;// Parrallel lines
             else
             {
@@ -40,7 +40,7 @@ namespace Swarm_Logic
                 double y = (A1 * C2 - A2 * C1) / det;
 
                 // Now we must check if (x,y) are on the 2 lines
-                if (A1 * x + B1 * y - C1 <= double.Epsilon && A2 * x + B2 * y - C2 <= double.Epsilon)
+                if (Math.Abs( A1 * x + B1 * y - C1) <= double.Epsilon && Math.Abs(A2 * x + B2 * y - C2 )<= double.Epsilon)
                     return true;
                 else
                     return false;
