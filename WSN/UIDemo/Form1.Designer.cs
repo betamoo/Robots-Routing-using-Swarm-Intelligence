@@ -35,7 +35,7 @@
             // 
             // Run
             // 
-            this.Run.Location = new System.Drawing.Point(12, 365);
+            this.Run.Location = new System.Drawing.Point(12, 490);
             this.Run.Name = "Run";
             this.Run.Size = new System.Drawing.Size(135, 37);
             this.Run.TabIndex = 0;
@@ -47,7 +47,7 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(498, 347);
+            this.pictureBox1.Size = new System.Drawing.Size(692, 472);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -55,7 +55,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 414);
+            this.ClientSize = new System.Drawing.Size(716, 551);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Run);
             this.Name = "Form1";

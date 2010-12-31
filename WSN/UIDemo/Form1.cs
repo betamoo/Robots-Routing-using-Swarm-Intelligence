@@ -17,20 +17,26 @@ namespace UIDemo
         public static int SrcX = 50;
         public static int SrcY = 50;
 
-        public static int MaxX = 100;
-        public static int MaxY = 100;
+        public static int MaxX = 400;
+        public static int MaxY = 400;
 
 
         public Form1()
         {
-            br = new Barrier[4];
+            br = new Barrier[6];
             br[0] = new Barrier(0,0,MaxX,0);
             br[1] = new Barrier(MaxX, 0, MaxX, MaxY);
             br[2] = new Barrier(MaxX, MaxY, 0, MaxY);
             br[3] = new Barrier(0, MaxY, 0, 0);
+
+            br[4] = new Barrier(0, 200, MaxX, 200);
+            br[5] = new Barrier(200, 0, 200, MaxY);
+
             InitializeComponent();
+
             rs = new GaussianFunctionSource(SrcX,SrcY);
-            env = new Swarm_Logic.Environment(100, 100, 100, br, rs);
+            
+            env = new Swarm_Logic.Environment(10, MaxX, MaxY, br, rs);
         }
 
         private System.Drawing.Graphics g;
@@ -54,7 +60,7 @@ namespace UIDemo
         private void Run_Click(object sender, EventArgs e)
         {
             pictureBox1.Refresh();
-            env.Run(1);
+            env.Run(200);
             drawAgents();
             drawSource();
             drawBarr();
