@@ -10,7 +10,11 @@ namespace Swarm_Logic
         const double W = 0.5;
         const double P = 0.5;
         const double G = 0.5;
-        
+        const double MaxVelocity = 10.0;
+        //const double MaxAcceleration=1.0;
+
+        static Random r = new Random();
+
         public double PX { set; get; }
         public double PY { set; get; }
 
@@ -25,9 +29,6 @@ namespace Swarm_Logic
         public double OthersBestY { set; get; }
         public double OthersBestValue { set; get; }
 
-        //const double MaxVelocity=10.0;
-        //const double MaxAcceleration=1.0;
-
         public PositionFunction RadiationFunction;
         public SendMessageFunction Send;
 
@@ -38,11 +39,11 @@ namespace Swarm_Logic
 
             this.VX = VX;
             this.VY = VY;
-            
+
             this.MyBestX = PX;
             this.MyBestY = PY;
-            this.MyBestValue = RadiationFunction(PX,PY);
-            
+            this.MyBestValue = RadiationFunction(PX, PY);
+
             this.RadiationFunction = RadiationFunction;
             this.Send = Send;
         }
@@ -60,19 +61,27 @@ namespace Swarm_Logic
 
         public void TakeDecision()
         {
-            VX = W * VX + P * (MyBestX - PX) + G * (OthersBestX - PX);
-            VY = W * VY + P * (MyBestY - PY) + G * (OthersBestY - PY);
+            VX = W * VX + r.NextDouble() * P * (MyBestX - PX) + r.NextDouble() * G * (OthersBestX - PX);
+            VY = W * VY + r.NextDouble()*P * (MyBestY - PY) + r.NextDouble()*G * (OthersBestY - PY);
+
+            double V = Math.Sqrt(VX * VX + VY * VY);
+            VX = VX / V;
+            VY = VY / V;
+
+            V = Math.Min(V, MaxVelocity);
+            VX *= V;
+            VY *= V;
         }
 
         public void AfterMoving()
         {
-            double CurrentRadiation=RadiationFunction(PX, PY);
-            if (CurrentRadiation < MyBestValue)
+            double CurrentRadiation = RadiationFunction(PX, PY);
+            if (CurrentRadiation > MyBestValue)
             {
                 MyBestX = PX;
                 MyBestY = PY;
                 MyBestValue = CurrentRadiation;
-                Send(this,new AgentMessage(PX,PY,MyBestValue));
+                Send(this, new AgentMessage(PX, PY, MyBestValue));
             }
         }
     }
