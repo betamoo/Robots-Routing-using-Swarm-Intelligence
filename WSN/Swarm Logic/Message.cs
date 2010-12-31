@@ -12,7 +12,7 @@ namespace Swarm_Logic
         public double PX;
         public double PY;
         public double Value;
-
+        
         public AgentMessage(double PX, double PY, double Value)
         {
             this.PX = PX;
