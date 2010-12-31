@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Swarm_Logic
 {
-
     public class Environment
     {
+        public delegate void VoidFunction();
+
         const double ReceiveRange = 5.0;
 
         public RadiationSource Source;
@@ -81,12 +82,15 @@ namespace Swarm_Logic
             }
         }
 
+        public event VoidFunction OnIterationEnd;
+
         public void Run(int NumberOfIterations)
         {
             for (int i = 0; i < NumberOfIterations; i++)
             {
                 Update();
-
+                if (OnIterationEnd!=null)
+                    OnIterationEnd();
             }
         }
 
