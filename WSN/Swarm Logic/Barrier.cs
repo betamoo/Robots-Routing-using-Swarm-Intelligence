@@ -39,7 +39,12 @@ namespace Swarm_Logic
                 double x = (B2 * C1 - B1 * C2) / det;
                 double y = (A1 * C2 - A2 * C1) / det;
 
-                if ()
+                if (
+                    x>= Math.Min(startX,endX) && x<= Math.Max(startX,endX)&&
+                    x>= Math.Min(X1,X2) && x<= Math.Max(X1,X2) &&
+                    y>= Math.Min(startY,endY) && y<= Math.Max(startY,endY)&&
+                    y>= Math.Min(Y1,Y2) && y<= Math.Max(Y1,Y2) 
+                    )
                     return true;
                 else
                     return false;
