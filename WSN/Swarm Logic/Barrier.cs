@@ -39,8 +39,7 @@ namespace Swarm_Logic
                 double x = (B2 * C1 - B1 * C2) / det;
                 double y = (A1 * C2 - A2 * C1) / det;
 
-                // Now we must check if (x,y) are on the 2 lines
-                if (Math.Abs( A1 * x + B1 * y - C1) <= double.Epsilon && Math.Abs(A2 * x + B2 * y - C2 )<= double.Epsilon)
+                if ()
                     return true;
                 else
                     return false;
