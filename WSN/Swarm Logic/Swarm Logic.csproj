@@ -46,6 +46,7 @@
     <Compile Include="Agent.cs" />
     <Compile Include="Barrier.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RadiationSource.cs" />
