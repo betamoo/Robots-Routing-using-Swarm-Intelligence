@@ -20,6 +20,43 @@ namespace Swarm_Logic
                 (SendingAgent.PX - ReceivingAgent.PX) * (SendingAgent.PX - ReceivingAgent.PX) + (SendingAgent.PY - ReceivingAgent.PY) * (SendingAgent.PY - ReceivingAgent.PY) <= ReceiveRange * ReceiveRange;
         }
 
+        private void Update()
+        {
+            foreach (Agent agent in Agents)
+            {
+                agent.TakeDecision();
+                double startX = agent.PX;
+                double startY = agent.PY;
+                double endX = agent.PX + agent.VX;
+                double endY = agent.PY + agent.VY;
+                foreach (Barrier barrier in Barriers)
+                {
+                    if (barrier.IsIntersected(startX, startY, endX, endY))
+                    {
+                        endX = agent.PX;
+                        endY = agent.PY;
+                        agent.VX = 0;
+                        agent.VY = 0;
+                        break;
+                    }
+                }
+                agent.PX = endX;
+                agent.PY = endY;
+                agent.AfterMoving();
+            }
+        }
+
+        private void Send(Agent SendingAgent, AgentMessage Message)
+        {
+            for (int i = 0; i < Agents.Length; i++)
+            {
+                if (WillTheAgentReceiveTheMessage(SendingAgent,Agents[i]))
+                {
+                    Agents[i].Receive(Message);
+                }
+            }
+        }
+
         public Environment(int NumberOfAgents, double BoundaryX, double BoundaryY, Barrier[] Barriers, RadiationSource Source)
         {
             NumberGenerator PXRandomGenerator = new UniformRandom(0.0, BoundaryX, (int)(DateTime.Now.Ticks));
@@ -43,38 +80,11 @@ namespace Swarm_Logic
             }
         }
 
-        public void Update()
+        public void Run(int NumberOfIterations)
         {
-            foreach (Agent agent in Agents)
+            for (int i = 0; i < NumberOfIterations; i++)
             {
-                double startX = agent.PX;
-                double startY = agent.PY;
-                double endX = agent.PX + agent.VX;
-                double endY = agent.PY + agent.VY;
-                foreach (Barrier barrier in Barriers)
-                {
-                    if (barrier.IsIntersected(startX, startY, endX, endY))
-                    {
-                        endX = agent.PX;
-                        endY = agent.PY;
-                        agent.VX = 0;
-                        agent.VY = 0;
-                        break;
-                    }
-                }
-                agent.PX = endX;
-                agent.PY = endY;
-            }
-        }
-
-        public void Send(Agent SendingAgent, AgentMessage Message)
-        {
-            for (int i = 0; i < Agents.Length; i++)
-            {
-                if (WillTheAgentReceiveTheMessage(SendingAgent,Agents[i]))
-                {
-                    Agents[i].Receive(Message);
-                }
+                Update();
             }
         }
 

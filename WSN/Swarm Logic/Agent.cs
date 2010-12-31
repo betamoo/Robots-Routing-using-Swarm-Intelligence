@@ -7,6 +7,10 @@ namespace Swarm_Logic
 {
     public class Agent
     {
+        const double W = 0.5;
+        const double P = 0.5;
+        const double G = 0.5;
+        
         public double PX { set; get; }
         public double PY { set; get; }
 
@@ -43,11 +47,6 @@ namespace Swarm_Logic
             this.Send = Send;
         }
 
-        public void ApplyVelocity()
-        {
-            PX += VX;
-            PY += VY;
-        }
 
         public void Receive(AgentMessage Message)
         {
@@ -59,5 +58,22 @@ namespace Swarm_Logic
             }
         }
 
+        public void TakeDecision()
+        {
+            VX = W * VX + P * (MyBestX - PX) + G * (OthersBestX - PX);
+            VY = W * VY + P * (MyBestY - PY) + G * (OthersBestY - PY);
+        }
+
+        public void AfterMoving()
+        {
+            double CurrentRadiation=RadiationFunction(PX, PY);
+            if (CurrentRadiation < MyBestValue)
+            {
+                MyBestX = PX;
+                MyBestY = PY;
+                MyBestValue = CurrentRadiation;
+                Send(this,new AgentMessage(PX,PY,MyBestValue));
+            }
+        }
     }
 }
