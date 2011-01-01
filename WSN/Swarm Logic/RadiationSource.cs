@@ -171,6 +171,7 @@ namespace Swarm_Logic
         public double GetRadiation(double PX, double PY)
         {
             double Sum = 0;
+           
             for (int i = 0; i < SourceXs.Length; i++)
             {
                 double RandomX = NoiseGenerator.NextDouble();

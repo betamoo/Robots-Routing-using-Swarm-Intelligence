@@ -40,7 +40,7 @@ namespace UIDemo
 
             rs = new MultipleNoisyGaussianFunctionSources(SourceXs, SourceYs, SourceAs, SourceBs);
             
-            env = new Swarm_Logic.Environment(25, MaxX, MaxY, br, rs);
+       //     env = new Swarm_Logic.Environment(25, MaxX, MaxY, br, rs);
             env.OnIterationEnd += RefreshMe;
         }
 
