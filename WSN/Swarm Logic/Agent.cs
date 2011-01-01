@@ -11,6 +11,7 @@ namespace Swarm_Logic
         static Random r = new Random();
 
         public bool FoundSource { get; set; }
+        public bool Sending { get; set; }
 
         public double PX { set; get; }
         public double PY { set; get; }
@@ -217,6 +218,7 @@ namespace Swarm_Logic
                 }
             }
 
+            Sending = WillAgentSend;
             if (WillAgentSend)
             {
                 Send(this, new AgentMessage(OthersBestX, OthersBestY, OthersBestValue));
