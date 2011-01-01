@@ -46,6 +46,7 @@
     <Compile Include="Agent.cs" />
     <Compile Include="Barrier.cs" />
     <Compile Include="Environment.cs" />
+    <Compile Include="GeneralParameters.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Number Generators\ExponintialRandom.cs" />
     <Compile Include="Number Generators\NormalRandom.cs" />

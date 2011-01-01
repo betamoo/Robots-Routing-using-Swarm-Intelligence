@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Swarm_Logic.Radiation_Sources
+namespace Swarm_Logic
 {
+    [Obsolete("Consider using MultipleGaussianFunctionSources instead...")]
     public class DoubleGaussianFunctionSources : RadiationSource
     {
-        const double NearDistance = 5.0;
-
         double Source1X { set; get; }
         double Source1Y { set; get; }
         double Source1A { set; get; }
@@ -45,8 +44,8 @@ namespace Swarm_Logic.Radiation_Sources
 
         public bool IsNearASource(double PX, double PY)
         {
-            return Math.Sqrt((Source1X - PX) * (Source1X - PX) + (Source1Y - PY) * (Source1Y - PY)) <= NearDistance ||
-                Math.Sqrt((Source2X - PX) * (Source2X - PX) + (Source2Y - PY) * (Source2Y - PY)) <= NearDistance;
+            return Math.Sqrt((Source1X - PX) * (Source1X - PX) + (Source1Y - PY) * (Source1Y - PY)) <= GeneralParameters.NearDistance ||
+                Math.Sqrt((Source2X - PX) * (Source2X - PX) + (Source2Y - PY) * (Source2Y - PY)) <= GeneralParameters.NearDistance;
         }
     }
 }

@@ -7,12 +7,6 @@ namespace Swarm_Logic
 {
     public class Agent
     {
-        const double W = 0.3925;
-        const double P = 2.5586;
-        const double G = 1.3358;
-        const double MaxVelocity = 5.0;
-        const double MinVelocity = 2.0;
-        //const double MaxAcceleration=1.0;
 
         static Random r = new Random();
 
@@ -37,8 +31,8 @@ namespace Swarm_Logic
 
         private void TakeTotalyRandomDecision()
         {
-            VX = (r.NextDouble() - 0.5) * 2 * MaxVelocity;
-            VY = (r.NextDouble() - 0.5) * 2 * MaxVelocity;
+            VX = (r.NextDouble() - 0.5) * 2 * GeneralParameters.MaxVelocity;
+            VY = (r.NextDouble() - 0.5) * 2 * GeneralParameters.MaxVelocity;
 
             double V = Math.Sqrt(VX * VX + VY * VY);
             if (V == 0)
@@ -46,8 +40,8 @@ namespace Swarm_Logic
             VX = VX / V;
             VY = VY / V;
 
-            V = Math.Min(V, MaxVelocity);
-            V = Math.Max(V, MinVelocity);
+            V = Math.Min(V, GeneralParameters.MaxVelocity);
+            V = Math.Max(V, GeneralParameters.MinVelocity);
             VX *= V;
             VY *= V;
         }
@@ -62,8 +56,8 @@ namespace Swarm_Logic
             VX = VX / V;
             VY = VY / V;
 
-            V = Math.Min(V, MaxVelocity);
-            V = Math.Max(V, MinVelocity);
+            V = Math.Min(V, GeneralParameters.MaxVelocity);
+            V = Math.Max(V, GeneralParameters.MinVelocity);
             VX *= V;
             VY *= V;
         }
@@ -97,8 +91,8 @@ namespace Swarm_Logic
             VX = VX / V;
             VY = VY / V;
 
-            V = Math.Min(V, MaxVelocity);
-            V = Math.Max(V, MinVelocity);
+            V = Math.Min(V, GeneralParameters.MaxVelocity);
+            V = Math.Max(V, GeneralParameters.MinVelocity);
             VX *= V;
             VY *= V;
 
@@ -151,8 +145,8 @@ namespace Swarm_Logic
             }
             else
             {
-                VX = W * VX + r.NextDouble() * P * (MyBestX - PX) + r.NextDouble() * G * (OthersBestX - PX);
-                VY = W * VY + r.NextDouble() * P * (MyBestY - PY) + r.NextDouble() * G * (OthersBestY - PY);
+                VX = GeneralParameters.W * VX + r.NextDouble() * GeneralParameters.P * (MyBestX - PX) + r.NextDouble() * GeneralParameters.G * (OthersBestX - PX);
+                VY = GeneralParameters.W * VY + r.NextDouble() * GeneralParameters.P * (MyBestY - PY) + r.NextDouble() * GeneralParameters.G * (OthersBestY - PY);
 
                 double V = Math.Sqrt(VX * VX + VY * VY);
                 if (V == 0)
@@ -160,8 +154,8 @@ namespace Swarm_Logic
                 VX = VX / V;
                 VY = VY / V;
 
-                V = Math.Min(V, MaxVelocity);
-                V = Math.Max(V, MinVelocity);
+                V = Math.Min(V, GeneralParameters.MaxVelocity);
+                V = Math.Max(V, GeneralParameters.MinVelocity);
                 VX *= V;
                 VY *= V;
             }
@@ -181,16 +175,16 @@ namespace Swarm_Logic
                 temp1 = 1;
 
 
-            VX = W * VX / temp0 + r.NextDouble() * P * (MyBestX - PX) / temp1 + r.NextDouble() * G * (OthersBestX - PX) / temp2;
-            VY = W * VY / temp0 + r.NextDouble() * P * (MyBestY - PY) / temp1 + r.NextDouble() * G * (OthersBestY - PY) / temp2;
+            VX = GeneralParameters.W * VX / temp0 + r.NextDouble() * GeneralParameters.P * (MyBestX - PX) / temp1 + r.NextDouble() * GeneralParameters.G * (OthersBestX - PX) / temp2;
+            VY = GeneralParameters.W * VY / temp0 + r.NextDouble() * GeneralParameters.P * (MyBestY - PY) / temp1 + r.NextDouble() * GeneralParameters.G * (OthersBestY - PY) / temp2;
 
 
             double V = Math.Sqrt(VX * VX + VY * VY);
             if (V == 0)
                 V = 1;
 
-            VX = MaxVelocity * VX / V;
-            VY = MaxVelocity * VY / V;
+            VX = GeneralParameters.MaxVelocity * VX / V;
+            VY = GeneralParameters.MaxVelocity * VY / V;
         }
 
         public void TakeRandomDecision()
