@@ -34,7 +34,6 @@ namespace Swarm_Logic
         public PositionFunction RadiationFunction;
         public SendMessageFunction Send;
 
-
         private void TakeRandomPerpendicularDecision()
         {
             VX = -(r.NextDouble()) * VX;
