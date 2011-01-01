@@ -86,12 +86,20 @@
       <Project>{24486C1D-087C-4FA7-95FF-053D6F852BB0}</Project>
       <Name>Environment Logic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Swarm Logic\Swarm Logic.csproj">
+      <Project>{0AC614E3-33A9-47C2-8E4B-75F6BE1BB686}</Project>
+      <Name>Swarm Logic</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\brick_wall.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="bin\Debug\4row-radiator.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\web-red-dot.png" />
+    <Content Include="bin\Debug\White.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

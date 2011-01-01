@@ -33,11 +33,14 @@
             this.BarrierButton = new System.Windows.Forms.Button();
             this.SourceButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.StartButton = new System.Windows.Forms.Button();
             this.RestartButton = new System.Windows.Forms.Button();
+            this.StartButton = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.GenerateButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -50,6 +53,9 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(537, 423);
             this.panel1.TabIndex = 0;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseMove);
+            this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseUp);
             // 
             // groupBox1
             // 
@@ -76,6 +82,7 @@
             this.BarrierButton.Text = "Barrier";
             this.BarrierButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BarrierButton.UseVisualStyleBackColor = true;
+            this.BarrierButton.Click += new System.EventHandler(this.BarrierButton_Click);
             // 
             // SourceButton
             // 
@@ -96,30 +103,31 @@
             // 
             this.groupBox2.Controls.Add(this.RestartButton);
             this.groupBox2.Controls.Add(this.StartButton);
-            this.groupBox2.Location = new System.Drawing.Point(18, 288);
+            this.groupBox2.Location = new System.Drawing.Point(18, 310);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(119, 132);
+            this.groupBox2.Size = new System.Drawing.Size(119, 110);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Operations";
             // 
-            // StartButton
-            // 
-            this.StartButton.Location = new System.Drawing.Point(18, 42);
-            this.StartButton.Name = "StartButton";
-            this.StartButton.Size = new System.Drawing.Size(59, 29);
-            this.StartButton.TabIndex = 0;
-            this.StartButton.Text = "Start";
-            this.StartButton.UseVisualStyleBackColor = true;
-            // 
             // RestartButton
             // 
-            this.RestartButton.Location = new System.Drawing.Point(18, 88);
+            this.RestartButton.Location = new System.Drawing.Point(18, 75);
             this.RestartButton.Name = "RestartButton";
             this.RestartButton.Size = new System.Drawing.Size(59, 29);
             this.RestartButton.TabIndex = 0;
             this.RestartButton.Text = "Restart";
             this.RestartButton.UseVisualStyleBackColor = true;
+            // 
+            // StartButton
+            // 
+            this.StartButton.Location = new System.Drawing.Point(18, 34);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(59, 29);
+            this.StartButton.TabIndex = 0;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // comboBox1
             // 
@@ -136,14 +144,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 221);
+            this.label1.Location = new System.Drawing.Point(23, 231);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 13);
+            this.label1.Size = new System.Drawing.Size(95, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "Agents Distribution";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.GenerateButton);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.comboBox2);
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.groupBox2);
@@ -154,6 +165,38 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Utilities";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Euclidean Distance Source",
+            "Gaussian Function Source",
+            "Double Gaussian Function Sources",
+            "Multiple Gaussian Function Sources"});
+            this.comboBox2.Location = new System.Drawing.Point(21, 208);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(108, 21);
+            this.comboBox2.TabIndex = 5;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 190);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Source Type";
+            // 
+            // GenerateButton
+            // 
+            this.GenerateButton.Location = new System.Drawing.Point(36, 275);
+            this.GenerateButton.Name = "GenerateButton";
+            this.GenerateButton.Size = new System.Drawing.Size(59, 29);
+            this.GenerateButton.TabIndex = 1;
+            this.GenerateButton.Text = "Generate";
+            this.GenerateButton.UseVisualStyleBackColor = true;
+            this.GenerateButton.Click += new System.EventHandler(this.GenerateButton_Click);
             // 
             // EnviromentGUI
             // 
@@ -184,6 +227,9 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Button GenerateButton;
     }
 }
 
