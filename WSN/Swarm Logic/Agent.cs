@@ -138,7 +138,7 @@ namespace Swarm_Logic
             }
         }
 
-        public void TakeDecision()
+        public void CalculateNextAction()
         {
             if (FoundSource)
             {
@@ -223,6 +223,11 @@ namespace Swarm_Logic
             {
                 Send(this, new AgentMessage(OthersBestX, OthersBestY, OthersBestValue));
             }
+
+
         }
+
+        public delegate void SendMessageFunction(Agent SendingAgent, AgentMessage Message);
+
     }
 }
