@@ -204,6 +204,7 @@
             this.AgentsNum.Name = "AgentsNum";
             this.AgentsNum.Size = new System.Drawing.Size(74, 20);
             this.AgentsNum.TabIndex = 7;
+            this.AgentsNum.TextChanged += new System.EventHandler(this.AgentsNum_TextChanged);
             // 
             // GenerateButton
             // 

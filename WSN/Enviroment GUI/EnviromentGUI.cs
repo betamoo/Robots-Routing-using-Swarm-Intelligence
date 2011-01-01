@@ -124,6 +124,8 @@ namespace Enviroment_GUI
             {
                 int agentNum = int.Parse(AgentsNum.Text);
                 enableStart();
+                if(agentNum<=0)
+                    throw new Exception("Number Of Agents Must be => 1");
                 if (_source.Count == 0)
                     throw new Exception("Please Add at least one source");
 
@@ -401,6 +403,11 @@ namespace Enviroment_GUI
             MV_param.Text = def[5].ToString();
             MinVPram.Text = def[6].ToString();
             enableInitDraw();
+        }
+
+        private void AgentsNum_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
