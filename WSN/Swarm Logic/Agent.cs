@@ -31,8 +31,8 @@ namespace Swarm_Logic
         public double OthersBestY { set; get; }
         public double OthersBestValue { set; get; }
 
-        public PositionFunction RadiationFunction;
-        public SendMessageFunction Send;
+        public PositionFunction RadiationFunction { set; get; }
+        public SendMessageFunction Send{set;get;}
 
         private void TakeTotalyRandomDecision()
         {
@@ -100,6 +100,19 @@ namespace Swarm_Logic
 
         }
 
+        public Agent(double PX, double PY, double VX, double VY)
+        {
+            this.PX = PX;
+            this.PY = PY;
+
+            this.VX = VX;
+            this.VY = VY;
+
+            this.MyBestX = PX;
+            this.MyBestY = PY;
+            this.MyBestValue = 0;
+
+        }
         public Agent(double PX, double PY, double VX, double VY, PositionFunction RadiationFunction, SendMessageFunction Send)
         {
             this.PX = PX;
@@ -110,9 +123,9 @@ namespace Swarm_Logic
 
             this.MyBestX = PX;
             this.MyBestY = PY;
-            this.MyBestValue = RadiationFunction(PX, PY);
 
             this.RadiationFunction = RadiationFunction;
+            this.MyBestValue = RadiationFunction(PX, PY);
             this.Send = Send;
         }
 
