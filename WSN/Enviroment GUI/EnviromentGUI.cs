@@ -27,7 +27,7 @@ namespace Enviroment_GUI
         NumberGenerator PosY;
         Swarm_Logic.Environment env;
 
-
+        List<double> def = new List<double>();
 
         List<Point> _source;
 
@@ -125,7 +125,7 @@ namespace Enviroment_GUI
                 int agentNum = int.Parse(AgentsNum.Text);
                 enableStart();
                 if (_source.Count == 0)
-                    MessageBox.Show("Please Add at least one source");
+                    throw new Exception("Please Add at least one source");
 
                 if (_source.Count == 1)
                 {
@@ -140,8 +140,8 @@ namespace Enviroment_GUI
                             env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B,R);
                             break;
                         default:
-                            MessageBox.Show("Please Add at More Than source");
-                            break;
+                            throw new Exception("Please Add at More Than source");
+                            
                     }
                     
 
@@ -171,8 +171,8 @@ namespace Enviroment_GUI
                             env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B, R);
                             break;
                         default:
-                            MessageBox.Show("Please Select Multiple Type Sources");
-                            break;
+                            throw new Exception("Please Select Multiple Type Sources");
+                            
                     }
                 }
                 RefreshMe();
@@ -245,6 +245,30 @@ namespace Enviroment_GUI
            
         }
 
+        public void resetInitDraw()
+        {
+            GenerateButton.Enabled = false;
+            StartButton.Enabled = false;
+            RestartButton.Enabled = false;
+            AgentsNum.Enabled = false;
+            comboBox2.Enabled = false;
+            textBox1.Enabled = false;
+            SourceButton.Enabled = false;
+            BarrierButton.Enabled = false;
+        }
+
+        public void enableInitDraw()
+        {
+            GenerateButton.Enabled = true;
+            comboBox2.Enabled = true;
+            AgentsNum.Enabled = true;
+            textBox1.Enabled = true;
+            SourceButton.Enabled = true;
+            BarrierButton.Enabled = true;
+
+            StartButton.Enabled = false;
+            RestartButton.Enabled = false;
+        }
         public void RefreshMe()
         {
             panel1.Refresh();
@@ -255,9 +279,26 @@ namespace Enviroment_GUI
 
         private void EnviromentGUI_Load(object sender, EventArgs e)
         {
-
+            readDefaultParameters();
         }
+        public void readDefaultParameters()
+        {
+            def.Add(Swarm_Logic.GeneralParameters.W);
+            def.Add(Swarm_Logic.GeneralParameters.P);
+            def.Add(Swarm_Logic.GeneralParameters.G);
+            def.Add(Swarm_Logic.GeneralParameters.ReceiveRange);
+            def.Add(Swarm_Logic.GeneralParameters.NearDistance);
+            def.Add(Swarm_Logic.GeneralParameters.MaxVelocity);
+            def.Add(Swarm_Logic.GeneralParameters.MinVelocity);
 
+            W_param.Text = def[0].ToString();
+            B_param.Text = def[1].ToString();
+            G_param.Text = def[2].ToString();
+            CR_param.Text = def[3].ToString();
+            SR_param.Text = def[4].ToString();
+            MV_param.Text = def[5].ToString();
+            MinVPram.Text = def[6].ToString();
+        }
         private void groupBox3_Enter(object sender, EventArgs e)
         {
 
@@ -288,6 +329,67 @@ namespace Enviroment_GUI
         public void disableStart()
         {
             StartButton.Enabled = false;
+        }
+
+        private void Writepram_Click(object sender, EventArgs e)
+        {
+            double w, b, g, maxv, minv, comrange, neardistance;
+            try
+            {
+                w = double.Parse(W_param.Text);
+                b = double.Parse(B_param.Text);
+                g = double.Parse(G_param.Text);
+                maxv = double.Parse(MV_param.Text);
+                minv = double.Parse(MinVPram.Text);
+                comrange = double.Parse(CR_param.Text);
+                neardistance = double.Parse(SR_param.Text);
+                Swarm_Logic.GeneralParameters.G = g;
+                Swarm_Logic.GeneralParameters.P=  b;
+                Swarm_Logic.GeneralParameters.W = w;
+                Swarm_Logic.GeneralParameters.MaxVelocity = maxv;
+                Swarm_Logic.GeneralParameters.MinVelocity = minv;
+                Swarm_Logic.GeneralParameters.ReceiveRange = comrange;
+                Swarm_Logic.GeneralParameters.NearDistance = neardistance;
+                enableInitDraw();
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
+
+        }
+
+        private void Clear_Click(object sender, EventArgs e)
+        {
+            W_param.Text = "";
+            B_param.Text = "";
+            G_param.Text = "";
+            CR_param.Text = "";
+            SR_param.Text = "";
+            MV_param.Text = "";
+            MinVPram.Text = "";
+
+            resetInitDraw();
+
+            _source = new List<Point>();
+            B = new List<Barrier>();
+            B.Add(new Swarm_Logic.Barrier(0, 0, MaxX, 0));
+            B.Add(new Swarm_Logic.Barrier(MaxX, 0, MaxX, MaxY));
+            B.Add(new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY));
+            B.Add(new Swarm_Logic.Barrier(0, MaxY, 0, 0));
+            disableStart();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            W_param.Text = def[0].ToString();
+            B_param.Text = def[1].ToString();
+            G_param.Text = def[2].ToString();
+            CR_param.Text = def[3].ToString();
+            SR_param.Text = def[4].ToString();
+            MV_param.Text = def[5].ToString();
+            MinVPram.Text = def[6].ToString();
+            enableInitDraw();
         }
     }
 }
