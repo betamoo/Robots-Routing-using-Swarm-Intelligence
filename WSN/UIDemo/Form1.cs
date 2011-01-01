@@ -38,7 +38,7 @@ namespace UIDemo
 
             InitializeComponent();
 
-            rs = new MultipleGaussianFunctionSources(SourceXs,SourceYs,SourceAs,SourceBs);
+            rs = new MultipleNoisyGaussianFunctionSources(SourceXs, SourceYs, SourceAs, SourceBs);
             
             env = new Swarm_Logic.Environment(25, MaxX, MaxY, br, rs);
             env.OnIterationEnd += RefreshMe;
