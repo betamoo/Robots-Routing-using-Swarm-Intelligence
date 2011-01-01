@@ -201,16 +201,16 @@ namespace Enviroment_GUI
 
             env.OnIterationEnd += RefreshMe;
             env.Run(int.Parse(textBox1.Text));
-
+            RestartButton.Enabled = true;
         }
         public void drawAgents()
         {
             Graphics g = panel1.CreateGraphics();
 
-            Pen p = new Pen(Color.Orange, 1);
-            Pen p2 = new Pen(Color.Green, 1);
-            Pen p3 = new Pen(Color.Yellow, 2);
-            Pen myPen = new Pen(System.Drawing.Color.Red, 1);
+            Pen p = new Pen(Color.Orange, 3);
+            Pen p2 = new Pen(Color.Green, 3);
+            Pen p3 = new Pen(Color.Yellow, 3);
+            Pen myPen = new Pen(System.Drawing.Color.Red, 3);
             myPen.DashStyle = DashStyle.Dot;
 
             foreach (Agent i in env.Agents)
