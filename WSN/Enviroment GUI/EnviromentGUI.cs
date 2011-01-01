@@ -143,6 +143,7 @@ namespace Enviroment_GUI
             Ag = new Agent[A.Count];
             foreach (Agent l in A)
             {
+                
                 l.Send = env.Send;
                 Ag[count2] = l;
                 count2++;
