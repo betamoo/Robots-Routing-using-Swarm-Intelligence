@@ -13,7 +13,7 @@ namespace UIDemo
 {
     public partial class Form1 : Form
     {
-        static double[] SourceXs = new double[] { 5,200,5};
+        static double[] SourceXs = new double[] { 180/*,200,5*/};
         static double[] SourceYs = new double[] {5, 150,180};
         static double[] SourceAs = new double[] { 1,1 ,1};
         static double[] SourceBs = new double[] { 1000,1000 ,1000};
@@ -25,22 +25,22 @@ namespace UIDemo
 
         public Form1()
         {
-            br = new Swarm_Logic.Barrier[8];
-            br[0] = new Swarm_Logic.Barrier(0, 0, MaxX, 0);
-            br[1] = new Swarm_Logic.Barrier(MaxX, 0, MaxX, MaxY);
-            br[2] = new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY);
-            br[3] = new Swarm_Logic.Barrier(0, MaxY, 0, 0);
+            br = new List< Swarm_Logic.Barrier>(8);
+            br.Add(new Swarm_Logic.Barrier(0, 0, MaxX, 0));
+            br.Add(new Swarm_Logic.Barrier(MaxX, 0, MaxX, MaxY));
+            br.Add( new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY));
+            br.Add( new Swarm_Logic.Barrier(0, MaxY, 0, 0));
 
-            br[4] = new Swarm_Logic.Barrier(50, 100, 95, 50);
-            br[5] = new Swarm_Logic.Barrier(200, 30, 211, 40);
-            br[6] = new Swarm_Logic.Barrier(150, 120, 100, 50);
-            br[7] = new Swarm_Logic.Barrier(250, 130, 200, 140);
+            br.Add( new Swarm_Logic.Barrier(50, 100, 95, 50));
+            br.Add(new Swarm_Logic.Barrier(200, 30, 211, 40));
+            br.Add( new Swarm_Logic.Barrier(150, 120, 100, 50));
+            br.Add(new Swarm_Logic.Barrier(250, 130, 200, 140));
 
             InitializeComponent();
 
             rs = new MultipleNoisyGaussianFunctionSources(SourceXs, SourceYs, SourceAs, SourceBs);
             
-       //     env = new Swarm_Logic.Environment(25, MaxX, MaxY, br, rs);
+            env = new Swarm_Logic.Environment(25, MaxX, MaxY, br, rs);
             env.OnIterationEnd += RefreshMe;
         }
 
@@ -52,7 +52,7 @@ namespace UIDemo
         Swarm_Logic.Environment env;
         RadiationSource rs;
 
-        Swarm_Logic.Barrier[] br;
+        List<Swarm_Logic.Barrier> br;
 
         bool b;
 

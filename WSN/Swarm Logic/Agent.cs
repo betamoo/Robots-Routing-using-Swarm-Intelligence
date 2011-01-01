@@ -7,9 +7,9 @@ namespace Swarm_Logic
 {
     public class Agent
     {
-        const double W = -0.4349;
-        const double P = -0.6504;
-        const double G = 2.2073;
+        const double W = 0.3925;
+        const double P = 2.5586;
+        const double G = 1.3358;
         const double MaxVelocity = 5.0;
         //const double MaxAcceleration=1.0;
 
@@ -198,11 +198,8 @@ namespace Swarm_Logic
 
         public void AfterMoving()
         {
-            if (FoundSource)
-            {
-                Send(this, new AgentMessage(MyBestX, MyBestY, MyBestValue));
-            }
-            else
+            bool WillAgentSend = FoundSource;
+            if (!FoundSource)
             {
                 double CurrentRadiation = RadiationFunction(PX, PY);
                 if (CurrentRadiation > MyBestValue)
@@ -210,8 +207,20 @@ namespace Swarm_Logic
                     MyBestX = PX;
                     MyBestY = PY;
                     MyBestValue = CurrentRadiation;
-                    Send(this, new AgentMessage(MyBestX, MyBestY, MyBestValue));
+                    WillAgentSend = true;
                 }
+                if (MyBestValue > OthersBestValue)
+                {
+                    OthersBestValue = MyBestValue;
+                    OthersBestX = MyBestX;
+                    OthersBestY = MyBestY;
+                    WillAgentSend = true;
+                }
+            }
+
+            if (WillAgentSend)
+            {
+                Send(this, new AgentMessage(OthersBestX, OthersBestY, OthersBestValue));
             }
         }
     }
