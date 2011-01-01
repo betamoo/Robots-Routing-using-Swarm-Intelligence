@@ -102,30 +102,6 @@ namespace Enviroment_GUI
 
         private void GenerateButton_Click(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem == "Uniform")
-            {
-                int x, y, Vx, Vy;
-                Graphics g = panel1.CreateGraphics();
-                Number = new UniformRandom(1, 100);
-                PosX = new UniformRandom(0, panel1.Width);
-                PosY = new UniformRandom(0, panel1.Height);
-                int AgentsNumber = Convert.ToInt32(Number.NextDouble());
-                AgentNo = AgentsNumber;
-                for (int i = 0; i < AgentsNumber; i++)
-                {
-                    x = Convert.ToInt32(PosX.NextDouble());
-                    y = Convert.ToInt32(PosY.NextDouble());
-                    Vx = Convert.ToInt32(PosX.NextDouble());
-                    Vy = Convert.ToInt32(PosY.NextDouble());
-                    Pen p = new Pen(Color.Green, 1);
-                    g.DrawRectangle(p, new Rectangle(x, y, 2, 2));
-                    A.Add(new Agent(x, y, Vx, Vy));
-                }
-            }
-            else if (comboBox1.SelectedItem == "Exponential")
-            { }
-            else if (comboBox1.SelectedItem == "Normal")
-            { }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
@@ -189,6 +165,11 @@ namespace Enviroment_GUI
             drawAgents();
             drawSource();
             drawBarrier();
+        }
+
+        private void EnviromentGUI_Load(object sender, EventArgs e)
+        {
+
         }
 
     }
