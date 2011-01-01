@@ -119,7 +119,7 @@ namespace Enviroment_GUI
                     Vy = Convert.ToInt32(PosY.NextDouble());
                     Pen p = new Pen(Color.Green, 1);
                     g.DrawRectangle(p, new Rectangle(x, y, 2, 2));
-                    A.Add(new Agent(x, y, Vx, Vy, R.GetRadiation, null));
+                    A.Add(new Agent(x, y, Vx, Vy));
                 }
             }
             else if (comboBox1.SelectedItem == "Exponential")
@@ -138,17 +138,8 @@ namespace Enviroment_GUI
                 Barr[count1] = br;
                 count1++;
             }
-            env = new Swarm_Logic.Environment(AgentNo, panel1.Width, panel1.Height, Barr, R);
+            env = new Swarm_Logic.Environment(A, panel1.Width, panel1.Height, B, R);
 
-            Ag = new Agent[A.Count];
-            foreach (Agent l in A)
-            {
-                
-                l.Send = env.Send;
-                Ag[count2] = l;
-                count2++;
-            }
-            env.Agents = Ag;
             env.OnIterationEnd += RefreshMe;
             env.Run(1000);
 
