@@ -47,9 +47,17 @@
     <Compile Include="Barrier.cs" />
     <Compile Include="Environment.cs" />
     <Compile Include="Message.cs" />
-    <Compile Include="NumberGenerator.cs" />
+    <Compile Include="Number Generators\ExponintialRandom.cs" />
+    <Compile Include="Number Generators\NormalRandom.cs" />
+    <Compile Include="Number Generators\NumberGenerator.cs" />
+    <Compile Include="Number Generators\UniformRandom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RadiationSource.cs" />
+    <Compile Include="Radiation Sources\DoubleGaussianFunctionSources.cs" />
+    <Compile Include="Radiation Sources\EuclideanDistanceSource.cs" />
+    <Compile Include="Radiation Sources\GaussianFunctionSource.cs" />
+    <Compile Include="Radiation Sources\MultipleGaussianFunctionSources.cs" />
+    <Compile Include="Radiation Sources\MultipleNoisyGaussianFunctionSources.cs" />
+    <Compile Include="Radiation Sources\RadiationSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
