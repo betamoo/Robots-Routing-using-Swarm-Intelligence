@@ -49,7 +49,7 @@ namespace Swarm_Logic
                             agent.TakeRandomDecision();
                             endX = agent.PX + agent.VX;
                             endY = agent.PY + agent.VY;
-                            i = 0;
+                            i = -1;
                         }
                     }
                 }
