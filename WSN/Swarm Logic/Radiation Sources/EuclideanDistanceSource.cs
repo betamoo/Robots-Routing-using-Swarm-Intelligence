@@ -17,7 +17,7 @@ namespace Swarm_Logic
         }
         public double GetRadiation(double PX, double PY)
         {
-            return Math.Sqrt((SourceX - PX) * (SourceX - PX) + (SourceY - PY) * (SourceY - PY));
+            return 10000-Math.Sqrt((SourceX - PX) * (SourceX - PX) + (SourceY - PY) * (SourceY - PY));
         }
 
         public bool IsNearASource(double PX, double PY)

@@ -7,8 +7,6 @@ namespace Swarm_Logic
 {
     public class Environment
     {
-        public delegate void VoidFunction();
-
         public RadiationSource Source;
 
         public List<Agent> Agents;
@@ -114,7 +112,7 @@ namespace Swarm_Logic
             }
         }
 
-        public event VoidFunction OnIterationEnd;
+        public event Action OnIterationEnd;
 
         public void Run(int NumberOfIterations)
         {
