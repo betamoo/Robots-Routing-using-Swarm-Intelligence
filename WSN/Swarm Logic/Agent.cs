@@ -15,6 +15,8 @@ namespace Swarm_Logic
 
         static Random r = new Random();
 
+        public bool FoundSource { get; set; }
+
         public double PX { set; get; }
         public double PY { set; get; }
 
@@ -32,6 +34,58 @@ namespace Swarm_Logic
         public PositionFunction RadiationFunction;
         public SendMessageFunction Send;
 
+
+        private void TakeRandomPerpendicularDecision()
+        {
+            VX = -(r.NextDouble()) * VX;
+            VY = -(r.NextDouble()) * VY;
+
+            double V = Math.Sqrt(VX * VX + VY * VY);
+            if (V == 0)
+                V = 1.0;
+            VX = VX / V;
+            VY = VY / V;
+
+            V = Math.Min(V, MaxVelocity);
+            VX *= V;
+            VY *= V;
+        }
+
+        private void TakeRandomTangentDecision()
+        {
+            // VX = -(r.NextDouble()) * VX;
+            // VY = -(r.NextDouble()) * VY;
+
+            double dx = VX - PX;
+            double dy = VY - PY;
+
+            double rdir = new Random().NextDouble();
+
+            double theta = Math.Atan(dy / dx);
+
+            if (rdir > 0.5)
+                theta *= 1;
+
+            double mag = Math.Sqrt((dx * dx) + (dy * dy));
+
+            double dxn = -dy;
+            double dyn = dx;
+
+            VX = PX + (dxn * mag);
+            VY = PY + (dyn * mag);
+
+            double V = Math.Sqrt(VX * VX + VY * VY);
+            if (V == 0)
+                V = 1.0;
+            VX = VX / V;
+            VY = VY / V;
+
+            V = Math.Min(V, MaxVelocity);
+            VX *= V;
+            VY *= V;
+
+        }
+
         public Agent(double PX, double PY, double VX, double VY, PositionFunction RadiationFunction, SendMessageFunction Send)
         {
             this.PX = PX;
@@ -48,7 +102,6 @@ namespace Swarm_Logic
             this.Send = Send;
         }
 
-
         public void Receive(AgentMessage Message)
         {
             if (Message.Value >= OthersBestValue)
@@ -61,16 +114,25 @@ namespace Swarm_Logic
 
         public void TakeDecision()
         {
-            VX = W * VX + r.NextDouble() * P * (MyBestX - PX) + r.NextDouble() * G * (OthersBestX - PX);
-            VY = W * VY + r.NextDouble() * P * (MyBestY - PY) + r.NextDouble() * G * (OthersBestY - PY);
+            if (FoundSource)
+            {
+                TakeRandomDecision();
+            }
+            else
+            {
+                VX = W * VX + r.NextDouble() * P * (MyBestX - PX) + r.NextDouble() * G * (OthersBestX - PX);
+                VY = W * VY + r.NextDouble() * P * (MyBestY - PY) + r.NextDouble() * G * (OthersBestY - PY);
 
-            double V = Math.Sqrt(VX * VX + VY * VY);
-            VX = VX / V;
-            VY = VY / V;
+                double V = Math.Sqrt(VX * VX + VY * VY);
+                if (V == 0)
+                    V = 1.0;
+                VX = VX / V;
+                VY = VY / V;
 
-            V = Math.Min(V, MaxVelocity);
-            VX *= V;
-            VY *= V;
+                V = Math.Min(V, MaxVelocity);
+                VX *= V;
+                VY *= V;
+            }
         }
 
         public void TakeDecision2()
@@ -101,45 +163,28 @@ namespace Swarm_Logic
 
         public void TakeRandomDecision()
         {
-           // VX = -(r.NextDouble()) * VX;
-           // VY = -(r.NextDouble()) * VY;
-
-            double dx = VX - PX;
-            double dy = VY - PY;
-
-            double rdir = new Random().NextDouble();
-
-            double theta = Math.Atan(dy/dx);
-
-            if (rdir > 0.5)
-                theta *= 1;
-
-            double mag = Math.Sqrt((dx * dx) + (dy * dy));
-
-            double dxn = -dy;
-            double dyn = dx;
-
-            VX = PX + (dxn * mag);
-            VY = PY + (dyn * mag);
-
-           double V = Math.Sqrt(VX * VX + VY * VY);
-            VX = VX / V;
-            VY = VY / V;
-
-            V = Math.Min(V, MaxVelocity);
-            VX *= V;
-            VY *= V;
-
+            if (r.NextDouble() < 0.5)
+                TakeRandomPerpendicularDecision();
+            else
+                TakeRandomTangentDecision();
         }
+
         public void AfterMoving()
         {
-            double CurrentRadiation = RadiationFunction(PX, PY);
-            if (CurrentRadiation > MyBestValue)
+            if (FoundSource)
             {
-                MyBestX = PX;
-                MyBestY = PY;
-                MyBestValue = CurrentRadiation;
                 Send(this, new AgentMessage(PX, PY, MyBestValue));
+            }
+            else
+            {
+                double CurrentRadiation = RadiationFunction(PX, PY);
+                if (CurrentRadiation > MyBestValue)
+                {
+                    MyBestX = PX;
+                    MyBestY = PY;
+                    MyBestValue = CurrentRadiation;
+                    Send(this, new AgentMessage(PX, PY, MyBestValue));
+                }
             }
         }
     }

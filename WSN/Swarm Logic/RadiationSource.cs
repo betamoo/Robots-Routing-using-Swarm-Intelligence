@@ -14,10 +14,12 @@ namespace Swarm_Logic
     public interface RadiationSource
     {
         double GetRadiation(double PX, double PY);
+        bool IsNearASource(double PX, double PY);
     }
 
     public class EuclideanDistanceSource:RadiationSource
     {
+        const double NearDistance= 5.0;
 
         double SourceX { get; set; }
         double SourceY { get; set; }
@@ -31,10 +33,16 @@ namespace Swarm_Logic
         {
             return Math.Sqrt((SourceX - PX) * (SourceX - PX) + (SourceY - PY) * (SourceY - PY));
         }
+
+        public bool IsNearASource(double PX, double PY)
+        {
+            return Math.Sqrt((SourceX - PX) * (SourceX - PX) + (SourceY - PY) * (SourceY - PY))<=NearDistance;
+        }
     }
 
     public class GaussianFunctionSource : RadiationSource
     {
+        const double NearDistance = 5.0;
 
         double SourceX { get; set; }
         double SourceY { get; set; }
@@ -50,10 +58,15 @@ namespace Swarm_Logic
         {
             return Math.Exp(-0.5 * ((SourceX - PX) * (SourceX - PX) / Source1B + (SourceY - PY) * (SourceY - PY) / Source1B));
         }
+        public bool IsNearASource(double PX, double PY)
+        {
+            return Math.Sqrt((SourceX - PX) * (SourceX - PX) + (SourceY - PY) * (SourceY - PY)) <= NearDistance;
+        }
     }
 
     public class DoubleGaussianFunctionSources : RadiationSource
     {
+        const double NearDistance = 5.0;
 
         double Source1X { set; get; }
         double Source1Y { set; get; }
@@ -89,10 +102,17 @@ namespace Swarm_Logic
             return Source1Magnitude + Source2Magnitude;
         }
 
+        public bool IsNearASource(double PX, double PY)
+        {
+            return Math.Sqrt((Source1X - PX) * (Source1X - PX) + (Source1Y - PY) * (Source1Y - PY)) <= NearDistance ||
+                Math.Sqrt((Source2X - PX) * (Source2X - PX) + (Source2Y - PY) * (Source2Y - PY)) <= NearDistance;
+        }
     }
 
     public class MultipleGaussianFunctionSources : RadiationSource
     {
+        const double NearDistance = 5.0;
+
         double[] SourceXs;
         double[] SourceYs;
         double[] SourceAs;
@@ -111,10 +131,64 @@ namespace Swarm_Logic
             double Sum = 0;
             for (int i = 0; i < SourceXs.Length; i++)
             {
-                double Magnitude = SourceAs[i] * Math.Exp(-0.5 * ((SourceXs[i] - PX) * (SourceXs[i] - PX)  + (SourceYs[i] - PY) * (SourceYs[i] - PY) / SourceBs[i]));
+                double Magnitude = SourceAs[i] * Math.Exp(-0.5 * ((SourceXs[i] - PX) * (SourceXs[i] - PX)  + (SourceYs[i] - PY) * (SourceYs[i] - PY)) / SourceBs[i]);
                 Sum += Magnitude;
             }
             return Sum;
+        }
+
+        public bool IsNearASource(double PX, double PY)
+        {
+            for (int i = 0; i < SourceXs.Length; i++)
+            {
+                if (Math.Sqrt((SourceXs[i] - PX) * (SourceXs[i] - PX) + (SourceYs[i] - PY) * (SourceYs[i] - PY)) <= NearDistance)
+                    return true;
+            }
+                return false;
+        }
+
+    }
+
+    public class MultipleNoisyGaussianFunctionSources : RadiationSource
+    {
+        const double NearDistance = 5.0;
+
+        NumberGenerator NoiseGenerator = new NormalRandom(0.0,1.0);
+
+        double[] SourceXs;
+        double[] SourceYs;
+        double[] SourceAs;
+        double[] SourceBs;
+
+        public MultipleNoisyGaussianFunctionSources(double[] SourceXs, double[] SourceYs, double[] SourceAs, double[] SourceBs)
+        {
+            this.SourceXs = SourceXs;
+            this.SourceYs = SourceYs;
+            this.SourceAs = SourceAs;
+            this.SourceBs = SourceBs;
+        }
+
+        public double GetRadiation(double PX, double PY)
+        {
+            double Sum = 0;
+            for (int i = 0; i < SourceXs.Length; i++)
+            {
+                double RandomX = NoiseGenerator.NextDouble();
+                double RandomY = NoiseGenerator.NextDouble();
+                double Magnitude = SourceAs[i] * Math.Exp(-0.5 * ((SourceXs[i] - PX + RandomX) * (SourceXs[i] - PX + RandomX) + (SourceYs[i] - PY + RandomY) * (SourceYs[i] - PY + RandomY)) / SourceBs[i]);
+                Sum += Magnitude;
+            }
+            return Sum;
+        }
+
+        public bool IsNearASource(double PX, double PY)
+        {
+            for (int i = 0; i < SourceXs.Length; i++)
+            {
+                if (Math.Sqrt((SourceXs[i] - PX) * (SourceXs[i] - PX) + (SourceYs[i] - PY) * (SourceYs[i] - PY)) <= NearDistance)
+                    return true;
+            }
+            return false;
         }
 
     }
