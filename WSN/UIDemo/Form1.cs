@@ -47,7 +47,7 @@ namespace UIDemo
         private System.Drawing.Graphics g;
         private System.Drawing.Pen pen1 = new System.Drawing.Pen(Color.Black, 2F);
         private System.Drawing.Pen pen2 = new System.Drawing.Pen(Color.Red, 2F);
-
+        private System.Drawing.Pen pen3 = new System.Drawing.Pen(Color.Green, 2F);
 
         Swarm_Logic.Environment env;
         RadiationSource rs;
@@ -80,7 +80,11 @@ namespace UIDemo
 
                 foreach (Agent agent in env.Agents)
                 {
-                    g.DrawRectangle(pen1, new Rectangle(new Point((int)agent.PX, (int)agent.PY), new Size(5, 5)));
+                    if(!agent.FoundSource)
+                        g.DrawRectangle(pen1, new Rectangle(new Point((int)agent.PX, (int)agent.PY), new Size(5, 5)));
+                    else
+                        g.DrawRectangle(pen3, new Rectangle(new Point((int)agent.PX, (int)agent.PY), new Size(5, 5)));
+
                 }
 
         }
