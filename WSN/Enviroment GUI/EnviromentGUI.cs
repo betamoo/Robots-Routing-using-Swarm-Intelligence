@@ -209,15 +209,27 @@ namespace Enviroment_GUI
 
             Pen p = new Pen(Color.Orange, 1);
             Pen p2 = new Pen(Color.Green, 1);
+            Pen p3 = new Pen(Color.Yellow, 2);
+            Pen myPen = new Pen(System.Drawing.Color.Red, 1);
+            myPen.DashStyle = DashStyle.Dot;
+
             foreach (Agent i in env.Agents)
             {
+                Rectangle myRectangle = new Rectangle((int)i.PX-((int)def[3]/2+1), (int)i.PY-((int)def[3]/2+1), (int)def[3], (int)def[3]);
+                g.DrawEllipse(myPen, myRectangle);
+
+                g.DrawEllipse(myPen, myRectangle);
+
                 if (i.FoundSource)
                 {
                     g.DrawRectangle(p2, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
                 }
                 else
                 {
-                    g.DrawRectangle(p, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
+                    if(!i.Sending)
+                        g.DrawRectangle(p, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
+                    else
+                        g.DrawRectangle(p3, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
                 }
             }
         }
