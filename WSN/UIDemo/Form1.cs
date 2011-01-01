@@ -106,9 +106,26 @@ namespace UIDemo
             drawSource();
             drawBarr();
         }
+         Thread t;
         private void button1_Click(object sender, EventArgs e)
         {
-            env.Run(10000);
+            EnvRun();
+            //ThreadStart ts = new ThreadStart(EnvRun);
+            
+            // t = new Thread(ts);
+            //t.IsBackground = true;
+            //t.Start();
+        }
+
+        void EnvRun()
+        {
+            env.Run(1000);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (t != null)
+                t.Abort();
         }
 
     }

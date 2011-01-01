@@ -55,6 +55,10 @@ namespace Swarm_Logic
                 }
                 agent.PX = endX;
                 agent.PY = endY;
+
+                if (Source.IsNearASource(agent.PX,agent.PY))
+                    agent.FoundSource = true; 
+                 
                 agent.AfterMoving();
             }
         }
@@ -102,6 +106,7 @@ namespace Swarm_Logic
                 Update();
                 if (OnIterationEnd!=null)
                     OnIterationEnd();
+                Thread.Sleep(20);
             }
         }
 
