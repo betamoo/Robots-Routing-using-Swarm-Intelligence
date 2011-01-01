@@ -133,11 +133,11 @@ namespace Enviroment_GUI
                     {
                         case 0:
                             R = new EuclideanDistanceSource(_source[0].X,_source[0].Y);
-                            env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B,R);
+                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
                             break;
                         case 1:
                             R = new GaussianFunctionSource(_source[0].X,_source[0].Y,1000);
-                            env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B,R);
+                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
                             break;
                         default:
                             throw new Exception("Please Add at More Than source");
@@ -164,11 +164,11 @@ namespace Enviroment_GUI
                         case 2:
 
                             R = new MultipleGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
-                            env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B, R);
+                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
                             break;
                         case 3:
                             R = new MultipleNoisyGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
-                            env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B, R);
+                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
                             break;
                         default:
                             throw new Exception("Please Select Multiple Type Sources");
@@ -215,8 +215,7 @@ namespace Enviroment_GUI
 
             foreach (Agent i in env.Agents)
             {
-                Rectangle myRectangle = new Rectangle((int)i.PX-((int)def[3]/2+1), (int)i.PY-((int)def[3]/2+1), (int)def[3], (int)def[3]);
-                g.DrawEllipse(myPen, myRectangle);
+                Rectangle myRectangle = new Rectangle((int)i.PX-((int)def[3]+1), (int)i.PY-((int)def[3]+1), (int)def[3]*2, (int)def[3]*2);
 
                 g.DrawEllipse(myPen, myRectangle);
 
