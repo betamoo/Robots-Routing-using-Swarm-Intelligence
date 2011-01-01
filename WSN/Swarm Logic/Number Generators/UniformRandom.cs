@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Swarm_Logic.Number_Generators
+namespace Swarm_Logic
 {
     /// <summary>
     /// This class implements a uniform random generator.

@@ -9,8 +9,6 @@ namespace Swarm_Logic
     {
         public delegate void VoidFunction();
 
-        const double ReceiveRange = 50;
-
         public RadiationSource Source;
 
         public List<Agent> Agents;
@@ -19,7 +17,7 @@ namespace Swarm_Logic
         private bool WillTheAgentReceiveTheMessage(Agent SendingAgent, Agent ReceivingAgent)
         {
             return (SendingAgent != ReceivingAgent) &&
-                (SendingAgent.PX - ReceivingAgent.PX) * (SendingAgent.PX - ReceivingAgent.PX) + (SendingAgent.PY - ReceivingAgent.PY) * (SendingAgent.PY - ReceivingAgent.PY) <= ReceiveRange * ReceiveRange;
+                (SendingAgent.PX - ReceivingAgent.PX) * (SendingAgent.PX - ReceivingAgent.PX) + (SendingAgent.PY - ReceivingAgent.PY) * (SendingAgent.PY - ReceivingAgent.PY) <= GeneralParameters.ReceiveRange * GeneralParameters.ReceiveRange;
         }
 
         public void Update()

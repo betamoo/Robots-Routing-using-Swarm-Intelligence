@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Swarm_Logic.Radiation_Sources
+namespace Swarm_Logic
 {
     public class MultipleNoisyGaussianFunctionSources : RadiationSource
     {
-        const double NearDistance = 5.0;
 
         NumberGenerator NoiseGenerator = new NormalRandom(0.0, 1.0);
 
@@ -42,7 +41,7 @@ namespace Swarm_Logic.Radiation_Sources
         {
             for (int i = 0; i < SourceXs.Length; i++)
             {
-                if (Math.Sqrt((SourceXs[i] - PX) * (SourceXs[i] - PX) + (SourceYs[i] - PY) * (SourceYs[i] - PY)) <= NearDistance)
+                if (Math.Sqrt((SourceXs[i] - PX) * (SourceXs[i] - PX) + (SourceYs[i] - PY) * (SourceYs[i] - PY)) <= GeneralParameters.NearDistance)
                     return true;
             }
             return false;
