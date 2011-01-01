@@ -11,6 +11,7 @@ namespace Swarm_Logic
         const double P = 2.5586;
         const double G = 1.3358;
         const double MaxVelocity = 5.0;
+        const double MinVelocity = 2.0;
         //const double MaxAcceleration=1.0;
 
         static Random r = new Random();
@@ -46,6 +47,7 @@ namespace Swarm_Logic
             VY = VY / V;
 
             V = Math.Min(V, MaxVelocity);
+            V = Math.Max(V, MinVelocity);
             VX *= V;
             VY *= V;
         }
@@ -61,6 +63,7 @@ namespace Swarm_Logic
             VY = VY / V;
 
             V = Math.Min(V, MaxVelocity);
+            V = Math.Max(V, MinVelocity);
             VX *= V;
             VY *= V;
         }
@@ -95,6 +98,7 @@ namespace Swarm_Logic
             VY = VY / V;
 
             V = Math.Min(V, MaxVelocity);
+            V = Math.Max(V, MinVelocity);
             VX *= V;
             VY *= V;
 
@@ -157,6 +161,7 @@ namespace Swarm_Logic
                 VY = VY / V;
 
                 V = Math.Min(V, MaxVelocity);
+                V = Math.Max(V, MinVelocity);
                 VX *= V;
                 VY *= V;
             }
