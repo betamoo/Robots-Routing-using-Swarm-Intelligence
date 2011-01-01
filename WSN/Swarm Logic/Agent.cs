@@ -34,6 +34,21 @@ namespace Swarm_Logic
         public PositionFunction RadiationFunction;
         public SendMessageFunction Send;
 
+        private void TakeTotalyRandomDecision()
+        {
+            VX = (r.NextDouble() - 0.5) * 2 * MaxVelocity;
+            VY = (r.NextDouble() - 0.5) * 2 * MaxVelocity;
+
+            double V = Math.Sqrt(VX * VX + VY * VY);
+            if (V == 0)
+                V = 1.0;
+            VX = VX / V;
+            VY = VY / V;
+
+            V = Math.Min(V, MaxVelocity);
+            VX *= V;
+            VY *= V;
+        }
         private void TakeRandomPerpendicularDecision()
         {
             VX = -(r.NextDouble()) * VX;
@@ -115,7 +130,7 @@ namespace Swarm_Logic
         {
             if (FoundSource)
             {
-                TakeRandomDecision();
+                TakeTotalyRandomDecision();
             }
             else
             {
@@ -172,7 +187,7 @@ namespace Swarm_Logic
         {
             if (FoundSource)
             {
-                Send(this, new AgentMessage(PX, PY, MyBestValue));
+                Send(this, new AgentMessage(MyBestX, MyBestY, MyBestValue));
             }
             else
             {
@@ -182,7 +197,7 @@ namespace Swarm_Logic
                     MyBestX = PX;
                     MyBestY = PY;
                     MyBestValue = CurrentRadiation;
-                    Send(this, new AgentMessage(PX, PY, MyBestValue));
+                    Send(this, new AgentMessage(MyBestX, MyBestY, MyBestValue));
                 }
             }
         }
