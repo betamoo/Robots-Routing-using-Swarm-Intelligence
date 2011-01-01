@@ -125,7 +125,7 @@ namespace Enviroment_GUI
                 int agentNum = int.Parse(AgentsNum.Text);
                 enableStart();
                 if (_source.Count == 0)
-                    throw new Exception("Please Add at least one source");
+                    MessageBox.Show("Please Add at least one source");
 
                 if (_source.Count == 1)
                 {
@@ -140,7 +140,8 @@ namespace Enviroment_GUI
                             env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B,R);
                             break;
                         default:
-                            throw new Exception("Please Add at More Than source");
+                            MessageBox.Show("Please Add at More Than source");
+                            break;
                     }
                     
 
@@ -170,7 +171,8 @@ namespace Enviroment_GUI
                             env = new Swarm_Logic.Environment(agentNum, MaxY, MaxY, B, R);
                             break;
                         default:
-                            throw new Exception("Please Select Multiple Type Sources");
+                            MessageBox.Show("Please Select Multiple Type Sources");
+                            break;
                     }
                 }
                 RefreshMe();
@@ -198,7 +200,7 @@ namespace Enviroment_GUI
           //  env = new Swarm_Logic.Environment(A, panel1.Width, panel1.Height, B, R);
 
             env.OnIterationEnd += RefreshMe;
-            env.Run(20);
+            env.Run(int.Parse(textBox1.Text));
 
         }
         public void drawAgents()

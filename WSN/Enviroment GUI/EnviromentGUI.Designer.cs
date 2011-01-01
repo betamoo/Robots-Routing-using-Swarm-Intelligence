@@ -36,11 +36,13 @@
             this.RestartButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AgentsNum = new System.Windows.Forms.TextBox();
             this.GenerateButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.AgentsNum = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -104,7 +106,7 @@
             // 
             this.groupBox2.Controls.Add(this.RestartButton);
             this.groupBox2.Controls.Add(this.StartButton);
-            this.groupBox2.Location = new System.Drawing.Point(18, 310);
+            this.groupBox2.Location = new System.Drawing.Point(23, 352);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(119, 110);
             this.groupBox2.TabIndex = 2;
@@ -134,6 +136,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.textBox1);
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.AgentsNum);
             this.groupBox3.Controls.Add(this.GenerateButton);
@@ -143,15 +147,31 @@
             this.groupBox3.Controls.Add(this.groupBox2);
             this.groupBox3.Location = new System.Drawing.Point(574, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(203, 426);
+            this.groupBox3.Size = new System.Drawing.Size(203, 468);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Utilities";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 240);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Number Of Agents";
+            // 
+            // AgentsNum
+            // 
+            this.AgentsNum.Location = new System.Drawing.Point(112, 237);
+            this.AgentsNum.Name = "AgentsNum";
+            this.AgentsNum.Size = new System.Drawing.Size(74, 20);
+            this.AgentsNum.TabIndex = 7;
+            // 
             // GenerateButton
             // 
-            this.GenerateButton.Location = new System.Drawing.Point(26, 275);
+            this.GenerateButton.Location = new System.Drawing.Point(26, 263);
             this.GenerateButton.Name = "GenerateButton";
             this.GenerateButton.Size = new System.Drawing.Size(160, 29);
             this.GenerateButton.TabIndex = 1;
@@ -181,27 +201,27 @@
             this.comboBox2.Size = new System.Drawing.Size(160, 21);
             this.comboBox2.TabIndex = 5;
             // 
-            // AgentsNum
+            // label3
             // 
-            this.AgentsNum.Location = new System.Drawing.Point(112, 237);
-            this.AgentsNum.Name = "AgentsNum";
-            this.AgentsNum.Size = new System.Drawing.Size(74, 20);
-            this.AgentsNum.TabIndex = 7;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(47, 310);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(53, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Iterations:";
             // 
-            // label1
+            // textBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 240);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Number Of Agents";
+            this.textBox1.Location = new System.Drawing.Point(114, 307);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(74, 20);
+            this.textBox1.TabIndex = 9;
             // 
             // EnviromentGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(789, 492);
+            this.ClientSize = new System.Drawing.Size(793, 492);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.panel1);
             this.Name = "EnviromentGUI";
@@ -230,6 +250,8 @@
         private System.Windows.Forms.Button GenerateButton;
         private System.Windows.Forms.TextBox AgentsNum;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

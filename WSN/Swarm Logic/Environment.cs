@@ -9,7 +9,7 @@ namespace Swarm_Logic
     {
         public delegate void VoidFunction();
 
-        const double ReceiveRange = 30.0;
+        const double ReceiveRange = 50;
 
         public RadiationSource Source;
 
