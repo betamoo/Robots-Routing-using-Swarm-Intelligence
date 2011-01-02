@@ -297,7 +297,8 @@ namespace Enviroment_GUI
             B.Add(new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY));
             B.Add(new Swarm_Logic.Barrier(0, MaxY, 0, 0));
 
-            env.OnIterationEnd -= OnIterationEnds;
+            if (env != null)
+                env.OnIterationEnd -= OnIterationEnds;
             env = null;
             disableStart();
         }
@@ -382,6 +383,7 @@ namespace Enviroment_GUI
         private void EnviromentGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             backgroundWorker1.CancelAsync();
+            if(env!=null)
             env.OnIterationEnd -= OnIterationEnds;
             env = null;
         }
