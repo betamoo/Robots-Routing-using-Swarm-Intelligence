@@ -203,7 +203,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(156, 27);
             this.button1.TabIndex = 14;
-            this.button1.Text = "Load Defult";
+            this.button1.Text = "Load Default";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -354,6 +354,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(74, 20);
             this.textBox1.TabIndex = 9;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
@@ -406,6 +407,7 @@
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.back);
             // 
             // EnviromentGUI
             // 
