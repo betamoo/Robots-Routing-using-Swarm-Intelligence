@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Swarm_Logic;
 
@@ -13,18 +14,11 @@ namespace Enviroment_GUI
 {
     public partial class EnviromentGUI : Form
     {
-        int AgentNo;
-        int SourceX, SourceY;
         Point ps = new Point();
         Point pe = new Point();
         List<Barrier> B = new List<Barrier>();
-        Barrier[] Barr;
         List<Agent> A = new List<Agent>();
-        Agent[] Ag;
         RadiationSource R;
-        NumberGenerator Number;
-        NumberGenerator PosX;
-        NumberGenerator PosY;
         Swarm_Logic.Environment env;
 
         List<double> def = new List<double>();
@@ -42,15 +36,12 @@ namespace Enviroment_GUI
             MaxY = panel1.Size.Height;
 
 
-
             _source = new List<Point>();
 
             B.Add(new Swarm_Logic.Barrier(0, 0, MaxX, 0));
             B.Add(new Swarm_Logic.Barrier(MaxX, 0, MaxX, MaxY));
             B.Add(new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY));
             B.Add(new Swarm_Logic.Barrier(0, MaxY, 0, 0));
-
-   
 
         }
 
@@ -134,9 +125,9 @@ namespace Enviroment_GUI
                     switch (comboBox2.SelectedIndex)
                     {
                         case 0:
-                           R = new EuclideanDistanceSource(_source[0].X,_source[0].Y);
-                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
-                            break;
+                           //R = new EuclideanDistanceSource(_source[0].X,_source[0].Y);
+                           // env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
+                           // break;
                         case 1:
                             R = new GaussianFunctionSource(_source[0].X,_source[0].Y,1000);
                             env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
@@ -167,17 +158,20 @@ namespace Enviroment_GUI
 
                             R = new MultipleGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
                             env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
+                            env.OnIterationEnd += RefreshMeX;
                             break;
                         case 3:
                             R = new MultipleNoisyGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
                             env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
+                            env.OnIterationEnd += RefreshMeX;
+
                             break;
                         default:
                             throw new Exception("Please Select Multiple Type Sources");
                             
                     }
                 }
-                RefreshMe();
+                RefreshME2();
             }
             
             catch (Exception exp)
@@ -189,30 +183,20 @@ namespace Enviroment_GUI
 
         }
 
-        private void StartButton_Click(object sender, EventArgs e)
+       private void StartButton_Click(object sender, EventArgs e)
         {
-            int count1 = 0;
-            int count2 = 0;
-            Barr = new Barrier[B.Count];
-            foreach (Barrier br in B)
-            {
-                Barr[count1] = br;
-                count1++;
-            }
-          //  env = new Swarm_Logic.Environment(A, panel1.Width, panel1.Height, B, R);
-
-            env.OnIterationEnd += RefreshMe;
-            env.Run(int.Parse(textBox1.Text));
+            backgroundWorker1.RunWorkerAsync();
             RestartButton.Enabled = true;
         }
+
         public void drawAgents()
         {
             Graphics g = panel1.CreateGraphics();
 
-            Pen p = new Pen(Color.Orange, 3);
+            Pen p = new Pen(Color.Black, 3);
             Pen p2 = new Pen(Color.Green, 3);
-            Pen p3 = new Pen(Color.Yellow, 3);
-            Pen myPen = new Pen(System.Drawing.Color.Red, 3);
+            Pen p3 = new Pen(Color.Red, 3);
+            Pen myPen = new Pen(System.Drawing.Color.Red, 1);
             myPen.DashStyle = DashStyle.Dot;
 
             foreach (Agent i in env.Agents)
@@ -238,7 +222,7 @@ namespace Enviroment_GUI
         {
             Graphics g = panel1.CreateGraphics();
 
-            Pen p = new Pen(Color.Blue, 2);
+            Pen p = new Pen(Color.Blue, 3);
             foreach (Barrier b in B)
             {
                 g.DrawLine(p, new Point(Convert.ToInt32(b.X1),Convert.ToInt32(b.Y1)),new Point(Convert.ToInt32(b.X2),Convert.ToInt32(b.Y2)));
@@ -282,12 +266,20 @@ namespace Enviroment_GUI
             StartButton.Enabled = false;
             RestartButton.Enabled = false;
         }
-        public void RefreshMe()
+        public void RefreshMeX()
+        {
+            this.Invoke((MethodInvoker)delegate
+            {
+                RefreshME2();
+            });
+        }
+        void RefreshME2()
         {
             panel1.Refresh();
             drawAgents();
             drawSource();
             drawBarrier();
+            Thread.Sleep(20);
         }
 
         private void EnviromentGUI_Load(object sender, EventArgs e)
@@ -408,6 +400,11 @@ namespace Enviroment_GUI
         private void AgentsNum_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            env.Run(int.Parse(textBox1.Text));
         }
     }
 }
