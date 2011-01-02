@@ -40,7 +40,7 @@ namespace Swarm_Logic
         public event Action OnIterationEnd;
 
         /// <summary>
-        /// Creates a new Environment with the specified number of agents, environment dimensions, list of barriers,
+        /// Creates a new environment with the specified number of agents, environment dimensions, list of barriers,
         /// and radiation source(s).
         /// </summary>
         /// <param name="NumberOfAgents">Represents the number of all agents in the environment.</param>
@@ -81,7 +81,7 @@ namespace Swarm_Logic
         }
 
         /// <summary>
-        /// Creates a new Environment with the specified list of agents, environment dimensions, list of barriers,
+        /// Creates a new environment with the specified list of agents, environment dimensions, list of barriers,
         /// and radiation source(s).
         /// </summary>
         /// <param name="Agents">Represents all agents in the enviroment.</param>
@@ -112,7 +112,7 @@ namespace Swarm_Logic
             {
                 a.RadiationFunction = Source.GetRadiation;
                 a.MyBestValue = a.RadiationFunction(a.PX, a.PY);
-                a.Send = Send;
+                a.SendMessage = Send;
             }
         }
 
@@ -198,7 +198,7 @@ namespace Swarm_Logic
                 if (Source.IsNearASource(agent.PX, agent.PY))
                     agent.FoundSource = true;
 
-                // Calculate agent parameters and communicate them to other agents if needed.
+                // Update agent parameters and communicate them to other agents if needed.
                 agent.AfterMoving();
             }
         }

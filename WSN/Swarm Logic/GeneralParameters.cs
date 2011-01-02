@@ -2,7 +2,7 @@
 namespace Swarm_Logic
 {
     /// <summary>
-    /// A static class that contains various parameters for Particle Swarm Optimization algorithm,
+    /// A static class that contains various parameters for the Particle Swarm Optimization algorithm,
     /// communication range, minimum and maximum velocities.
     /// </summary>
     public static class GeneralParameters
