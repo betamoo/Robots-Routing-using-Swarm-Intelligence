@@ -54,10 +54,19 @@ namespace Swarm_Logic
         // Represents the function used by the agent to send messages to other nearby agents. 
         public SendMessageFunction SendMessage{set;get;}
 
-        // The delegate of the function used by the agent to calculate the radiation intensity as measured by a sensor at any given position.
+        /// <summary>
+        /// The delegate of the function used by the agent to calculate the radiation intensity as measured by a sensor at any given position.
+        /// </summary>
+        /// <param name="PX">Represents the X coordinate of the agent position.</param>
+        /// <param name="PY">Represents the Y coordinate of the agent position.</param>
+        /// <returns>The intensity of radiation as measured by the agent sensor at that position.</returns>
         public delegate double PositionFunction(double PX, double PY);
 
-        // The delegate of the function used by the agent to send messages to other nearby agents.
+        /// <summary>
+        /// The delegate of the function used by the agent to send messages to other nearby agents.
+        /// </summary>
+        /// <param name="SendingAgent">Represents the agent who is sending.</param>
+        /// <param name="Message">Represents the message which is being sent.</param>
         public delegate void SendMessageFunction(Agent SendingAgent, AgentMessage Message);
 
         /// <summary>
