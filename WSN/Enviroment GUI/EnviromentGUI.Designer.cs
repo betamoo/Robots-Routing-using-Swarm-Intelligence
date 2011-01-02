@@ -60,7 +60,7 @@
             this.AgentsNum = new System.Windows.Forms.TextBox();
             this.GenerateButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -104,7 +104,6 @@
             this.BarrierButton.Text = "Barrier";
             this.BarrierButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BarrierButton.UseVisualStyleBackColor = true;
-            this.BarrierButton.Click += new System.EventHandler(this.BarrierButton_Click);
             // 
             // SourceButton
             // 
@@ -120,7 +119,6 @@
             this.SourceButton.Text = "Source";
             this.SourceButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SourceButton.UseVisualStyleBackColor = true;
-            this.SourceButton.Click += new System.EventHandler(this.SourceButton_Click);
             // 
             // groupBox2
             // 
@@ -163,7 +161,7 @@
             this.groupBox3.Controls.Add(this.AgentsNum);
             this.groupBox3.Controls.Add(this.GenerateButton);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.comboBox2);
+            this.groupBox3.Controls.Add(this.comboBox1);
             this.groupBox3.Controls.Add(this.groupBox1);
             this.groupBox3.Controls.Add(this.groupBox2);
             this.groupBox3.Location = new System.Drawing.Point(574, 12);
@@ -172,7 +170,6 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Utilities";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
             // 
             // groupBox4
             // 
@@ -373,7 +370,6 @@
             this.AgentsNum.Name = "AgentsNum";
             this.AgentsNum.Size = new System.Drawing.Size(74, 20);
             this.AgentsNum.TabIndex = 7;
-            this.AgentsNum.TextChanged += new System.EventHandler(this.AgentsNum_TextChanged);
             // 
             // GenerateButton
             // 
@@ -394,19 +390,18 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Source Type";
             // 
-            // comboBox2
+            // comboBox1
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "Euclidean Distance Source",
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
             "Gaussian Function Source",
             "Multiple Gaussian Function Sources",
             "Multiple Noise Gaussian Function Sources"});
-            this.comboBox2.Location = new System.Drawing.Point(26, 206);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(160, 21);
-            this.comboBox2.TabIndex = 5;
-            this.comboBox2.Text = "Gaussian Function Source";
+            this.comboBox1.Location = new System.Drawing.Point(26, 206);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(160, 21);
+            this.comboBox1.TabIndex = 5;
+            this.comboBox1.Text = "Gaussian Function Source";
             // 
             // backgroundWorker1
             // 
@@ -421,6 +416,7 @@
             this.Controls.Add(this.panel1);
             this.Name = "EnviromentGUI";
             this.Text = "Enviroment";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EnviromentGUI_FormClosing);
             this.Load += new System.EventHandler(this.EnviromentGUI_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -443,7 +439,7 @@
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button GenerateButton;
         private System.Windows.Forms.TextBox AgentsNum;
         private System.Windows.Forms.Label label1;

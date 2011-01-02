@@ -7,15 +7,21 @@ namespace Swarm_Logic
     /// </summary>
     public struct AgentMessage
     {
-        // Represents the X coordinate of the sent message.
-        public double PX;
-        
-        // Represents the Y coordinate of the sent message.
-        public double PY;
+        /// <summary>
+        /// Represents the X coordinate of the sent message.
+        /// </summary>
+        public double PX { set; get; }
 
-        // Represents radiation intensity at the position (PX,PY).
-        public double Value;
-        
+        /// <summary>
+        /// Represents the Y coordinate of the sent message.
+        /// </summary>
+        public double PY { set; get; }
+
+        /// <summary>
+        /// Represents radiation intensity at the position (PX,PY).
+        /// </summary>
+        public double Value { set; get; }
+
         /// <summary>
         /// Creates an new agent message with the specified coordinates and radiation intensity value.
         /// </summary>
@@ -23,6 +29,7 @@ namespace Swarm_Logic
         /// <param name="PY">Represents the Y coordinate of the sent message.</param>
         /// <param name="Value">Represents radiation intensity at the position (PX,PY).</param>
         public AgentMessage(double PX, double PY, double Value)
+            : this()
         {
             this.PX = PX;
             this.PY = PY;
