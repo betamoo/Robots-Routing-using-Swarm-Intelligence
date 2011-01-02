@@ -227,7 +227,7 @@ namespace Enviroment_GUI
                 }
                 else
                 {
-                    if(!i.Sending)
+                    if(!i.WasSending)
                         g.DrawRectangle(p, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
                     else
                         g.DrawRectangle(p3, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));

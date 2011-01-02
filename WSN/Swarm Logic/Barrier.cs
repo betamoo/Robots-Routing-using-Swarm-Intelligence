@@ -8,25 +8,25 @@ namespace Swarm_Logic
     /// </summary>
     public class Barrier
     {
-        // Represents the X coordinate of the the first end of the barrier.
+        // Represents the X coordinate of the first end of the barrier.
         public double X1 { set; get; }
 
-        // Represents the Y coordinate of the the first end of the barrier.
+        // Represents the Y coordinate of the first end of the barrier.
         public double Y1 { set; get; }
 
-        // Represents the X coordinate of the the second end of the barrier.
+        // Represents the X coordinate of the second end of the barrier.
         public double X2 { set; get; }
 
-        // Represents the Y coordinate of the the second end of the barrier.
+        // Represents the Y coordinate of the second end of the barrier.
         public double Y2 { set; get; }
 
         /// <summary>
-        /// Creates a new Barrier with the specified begining and ending coordinates.
+        /// Creates a new barrier with the specified begining and ending coordinates.
         /// </summary>
-        /// <param name="X1">Represents the X coordinate of the the first end of the barrier.</param>
-        /// <param name="Y1">Represents the Y coordinate of the the first end of the barrier.</param>
-        /// <param name="X2">Represents the X coordinate of the the second end of the barrier.</param>
-        /// <param name="Y2">Represents the Y coordinate of the the second end of the barrier.</param>
+        /// <param name="X1">Represents the X coordinate of the first end of the barrier.</param>
+        /// <param name="Y1">Represents the Y coordinate of the first end of the barrier.</param>
+        /// <param name="X2">Represents the X coordinate of the second end of the barrier.</param>
+        /// <param name="Y2">Represents the Y coordinate of the second end of the barrier.</param>
         public Barrier(double X1, double Y1, double X2, double Y2)
         {
             this.X1 = X1;

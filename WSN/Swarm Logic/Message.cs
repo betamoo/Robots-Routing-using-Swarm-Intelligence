@@ -17,7 +17,7 @@ namespace Swarm_Logic
         public double Value;
         
         /// <summary>
-        /// Creates an new AgentMessage with the specified coordinates and radiation intensity value.
+        /// Creates an new agent message with the specified coordinates and radiation intensity value.
         /// </summary>
         /// <param name="PX">Represents the X coordinate of the sent message.</param>
         /// <param name="PY">Represents the Y coordinate of the sent message.</param>
