@@ -9,14 +9,20 @@ namespace Swarm_Logic
     /// </summary>
     public class Environment
     {
-        // Represents the radiation source(s).
+        /// <summary>
+        /// Represents the radiation source(s).
+        /// </summary>
         public RadiationSource Source;
 
-        // Represents a list of all agents in the environment.
+        /// <summary>
+        /// Represents a list of all agents in the environment.
+        /// </summary>
         public List<Agent> Agents;
 
-        // Represents a list of all barriers in the environment.
-        public Barrier[] Barriers;
+        /// <summary>
+        /// Represents a list of all barriers in the environment.
+        /// </summary>
+        public List<Barrier> Barriers;
 
         /// <summary>
         ///  This function decides if an agent will receive a meesage sent from another agent or not.
@@ -63,8 +69,8 @@ namespace Swarm_Logic
             NumberGenerator VYRandomGenerator = new UniformRandom(-Height, Height, (int)(DateTime.Now.Ticks + 3));
 
             this.Source = Source;
-            this.Barriers = Barriers.ToArray();
-            
+            this.Barriers = Barriers;
+
             // Populate the list of agents with random positions and velocities.
             Agents = new List<Agent>(NumberOfAgents);
             for (int i = 0; i < NumberOfAgents; i++)
@@ -104,7 +110,7 @@ namespace Swarm_Logic
             NumberGenerator VYRandomGenerator = new UniformRandom(-Height, Height, (int)(DateTime.Now.Ticks + 3));
 
             this.Source = Source;
-            this.Barriers = Barriers.ToArray();
+            this.Barriers = Barriers;
             this.Agents = Agents;
 
             // Ensure that the agents are initialized properly.
@@ -141,8 +147,6 @@ namespace Swarm_Logic
         {
             foreach (Agent agent in Agents)
             {
-                // The number of invalid decisions each agent is allowed to take.
-                int Try = 4;
 
                 // Make the agent calculates the next action.
                 agent.CalculateNextAction();
@@ -155,40 +159,55 @@ namespace Swarm_Logic
                 double endX = agent.PX + agent.VX;
                 double endY = agent.PY + agent.VY;
 
-                // Ensure that executing the action will not cross any of the barriers.
-                for (int i = 0; i < Barriers.Length; i++)
+                // The number of invalid decisions each agent is allowed to take.
+                int Try = 4;
+
+                // A flag to indicate whether to restart the small foreach loop or not.
+                bool Restart;
+
+                do
                 {
-                    // Executing the action will cross a barrier.
-                    if (Barriers[i].IsIntersected(startX, startY, endX, endY))
+                    Restart = false;
+
+                    // Ensure that executing the action will not cross any of the barriers.
+                    foreach (Barrier barrier in Barriers)
                     {
-                        // If the number of remaining trials is greater than zero.
-                        if (Try > 0)
+                        // Executing the action will cross a barrier.
+                        if (barrier.IsIntersected(startX, startY, endX, endY))
                         {
-                            // Allow the agent to take another action.
-                            agent.TakeRandomDecision();
+                            // If the number of remaining trials is greater than zero.
+                            if (Try > 0)
+                            {
+                                // Allow the agent to take another action.
+                                agent.TakeRandomDecision();
 
-                            // Re-calculates the expected position of the agent after executing the calculated action.
-                            endX = agent.PX + agent.VX;
-                            endY = agent.PY + agent.VY;
+                                // Re-calculates the expected position of the agent after executing the calculated action.
+                                endX = agent.PX + agent.VX;
+                                endY = agent.PY + agent.VY;
 
-                            // Decrease the number of remaining trials.
-                            Try--;
+                                // Decrease the number of remaining trials.
+                                Try--;
 
-                            // Restart the loop checking for barries.
-                            // Make the loop checks for all the barries again after the decision is changed.
-                            i = -1;
-                        }
-                        else
-                        {
-                            // The agent has finished all the remaining trials.
-                            // It will not be allowed to move in this iteration.
-                            endX = agent.PX;
-                            endY = agent.PY;
-                            agent.VX = 0;
-                            agent.VY = 0;
+                                // Restart the loop checking for barries.
+                                // Make the loop checks for all the barries again after the decision is changed.
+                                Restart = true;
+                                break;
+                            }
+                            else
+                            {
+                                // The agent has finished all the remaining trials.
+                                // It will not be allowed to move in this iteration.
+                                endX = agent.PX;
+                                endY = agent.PY;
+                                agent.VX = 0;
+                                agent.VY = 0;
+
+                                break;
+                            }
                         }
                     }
-                }
+
+                } while (Restart);
 
                 // Execute the calculated action -if it was valid.
                 agent.PX = endX;

@@ -7,25 +7,39 @@ namespace Swarm_Logic
     /// </summary>
     public static class GeneralParameters
     {
-        // Represents the ratio of the agent's current velocity that affects the next velocity decesion.
+        /// <summary>
+        /// Represents the ratio of the agent's current velocity that affects the next velocity decesion.
+        /// </summary>
         public static double W = 0.3925;
 
-        // Represents the ratio of the agent's distance to the best encountered position that affects the next velocity decesion.
+        /// <summary>
+        /// Represents the ratio of the agent's distance to the best encountered position that affects the next velocity decesion.
+        /// </summary>
         public static double P = 2.5586;
 
-        // Represents the ratio of the agent's distance to the best known position that affects the next velocity decesion.
+        /// <summary>
+        /// Represents the ratio of the agent's distance to the best known position that affects the next velocity decesion.
+        /// </summary>
         public static double G = 1.3358;
 
-        // Represents the range in which agents can communicate with each other.
+        /// <summary>
+        /// Represents the range in which agents can communicate with each other.
+        /// </summary>
         public static double ReceiveRange = 50.0;
 
-        // Represents the maximum velocity for every agent.
+        /// <summary>
+        /// Represents the maximum velocity for every agent.
+        /// </summary>
         public static double MaxVelocity = 5.0;
 
-        // Represents the minimum velocity for every agent.
+        /// <summary>
+        /// Represents the minimum velocity for every agent.
+        /// </summary>
         public static double MinVelocity = 2.0;
 
-        // An agent is considered reached a radiation source, if it is at distance NearDistance or less to the radiation source.
+        /// <summary>
+        /// An agent is considered reached a radiation source, if it is at distance NearDistance or less to the radiation source.
+        /// </summary>
         public static double NearDistance = 5.0;
     }
 }

@@ -10,48 +10,76 @@ namespace Swarm_Logic
     {
         // Represents the pseudo-random number generator used to generate random numbers for the Particle Swarm Optimization algorithm.
         private static Random r = new Random();
-
-        // A boolean that indicates if the agent has found a radiation source before.
+        
+        /// <summary>
+        /// A boolean that indicates if the agent has found a radiation source before.
+        /// </summary>
         public bool FoundSource { get; set; }
 
-        // A boolean that indicates if the agent was sending information in the last iteration.
-        // That boolean can be used by a graphical user interface, to indicate when each agent had sent information.
+        /// <summary>
+        /// A boolean that indicates if the agent was sending information in the last iteration.
+        /// That boolean can be used by a graphical user interface, to indicate when each agent had sent information.
+        /// </summary>
         public bool WasSending { get; set; }
 
-        // Represents the X coordinate of the agent position.
+        /// <summary>
+        /// Represents the X coordinate of the agent position.
+        /// </summary>
         public double PX { set; get; }
 
-        // Represents the Y coordinate of the agent position.
+        /// <summary>
+        /// Represents the Y coordinate of the agent position.
+        /// </summary>
         public double PY { set; get; }
 
-        // Represents the X coordinate of the agent velocity.
+        /// <summary>
+        /// Represents the X coordinate of the agent velocity.
+        /// </summary>
         public double VX { set; get; }
 
-        // Represents the Y coordinate of the agent velocity.
+        /// <summary>
+        /// Represents the Y coordinate of the agent velocity.
+        /// </summary>
         public double VY { set; get; }
 
-        // Represents the X coordinate of the visited-by-the-agent position with the most radiation intensity.
+        /// <summary>
+        /// Represents the X coordinate of the visited-by-the-agent position with the most radiation intensity.
+        /// </summary>
         public double MyBestX { set; get; }
 
-        // Represents the Y coordinate of the visited-by-the-agent position with the most radiation intensity.
+        /// <summary>
+        /// Represents the Y coordinate of the visited-by-the-agent position with the most radiation intensity.
+        /// </summary>
         public double MyBestY { set; get; }
 
-        // Represents the radiation intensity of the visited-by-the-agent position with the most radiation intensity.
+        /// <summary>
+        /// Represents the radiation intensity of the visited-by-the-agent position with the most radiation intensity.
+        /// </summary>
         public double MyBestValue { set; get; }
 
-        // Represents the X coordinate of the known position with the most radiation intensity.
+        /// <summary>
+        /// Represents the X coordinate of the known position with the most radiation intensity.
+        /// </summary>
         public double OthersBestX { set; get; }
 
-        // Represents the Y coordinate of the known position with the most radiation intensity.
+        /// <summary>
+        /// Represents the Y coordinate of the known position with the most radiation intensity.
+        /// </summary>
         public double OthersBestY { set; get; }
 
-        // Represents the radiation intensity of the known position with the most radiation intensity.
+        /// <summary>
+        /// Represents the radiation intensity of the known position with the most radiation intensity.
+        /// </summary>
         public double OthersBestValue { set; get; }
 
-        // Represents the function used by the agent to calculate the radiation intensity as measured by a sensor at any given position.
+        /// <summary>
+        /// Represents the function used by the agent to calculate the radiation intensity as measured by a sensor at any given position.
+        /// </summary>
         public PositionFunction RadiationFunction { set; get; }
 
-        // Represents the function used by the agent to send messages to other nearby agents. 
+        /// <summary>
+        /// Represents the function used by the agent to send messages to other nearby agents. 
+        /// </summary>
         public SendMessageFunction SendMessage{set;get;}
 
         /// <summary>

@@ -43,13 +43,15 @@ namespace Enviroment_GUI
             B.Add(new Swarm_Logic.Barrier(MaxX, MaxY, 0, MaxY));
             B.Add(new Swarm_Logic.Barrier(0, MaxY, 0, 0));
 
+            comboBox1.SelectedIndex = 0;
+            backgroundWorker1.WorkerSupportsCancellation = true;
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
-            ps.X = e.X;
-            ps.Y = e.Y;
-            pe = ps;
+            ps = new Point(e.X, e.Y);
+            pe = new Point(e.X, e.Y);
+
             if (SourceButton.Focused == true)
             {
                 Graphics g = panel1.CreateGraphics();
@@ -58,26 +60,12 @@ namespace Enviroment_GUI
                 g.DrawEllipse(myPen, myRectangle);
 
 
-                _source.Add(new Point(e.X,e.Y));
-                //else if (comboBox2.SelectedItem == "Gaussian Function Source")
-                //{
-                //    R = new GaussianFunctionSource(e.X,e.Y,;
-                //}
-                //else if (comboBox2.SelectedItem == "Double Gaussian Function Sources")
-                //{
-                //    R = new EuclideanDistanceSource(e.X, e.Y);
-                //}
-                //else if (comboBox2.SelectedItem == "Multiple Gaussian Function Sources")
-                //{
-                //    R = new EuclideanDistanceSource(e.X, e.Y);
-                //}
+                if (comboBox1.SelectedIndex == 0 && _source.Count > 0)
+                    _source.Clear();
+                _source.Add(new Point(e.X, e.Y));
+                RefreshGraphics();
 
             }
-        }
-
-        private void BarrierButton_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void panel1_MouseMove(object sender, MouseEventArgs e)
@@ -115,65 +103,51 @@ namespace Enviroment_GUI
             {
                 int agentNum = int.Parse(AgentsNum.Text);
                 enableStart();
-                if(agentNum<=0)
+                if (agentNum <= 0)
                     throw new Exception("Number Of Agents Must be => 1");
                 if (_source.Count == 0)
                     throw new Exception("Please Add at least one source");
 
-                if (_source.Count == 1)
+                List<double> _xpos = new List<double>();
+                List<double> _ypos = new List<double>();
+                List<double> _A = new List<double>();
+                List<double> _B = new List<double>();
+                foreach (Point p in _source)
                 {
-                    switch (comboBox2.SelectedIndex)
-                    {
-                        case 0:
-                           //R = new EuclideanDistanceSource(_source[0].X,_source[0].Y);
-                           // env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
-                           // break;
-                        case 1:
-                            R = new GaussianFunctionSource(_source[0].X,_source[0].Y,1000);
-                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
-                            break;
-                        default:
-                            throw new Exception("Please Add at More Than source");
-                            
-                    }
-                    
-
+                    _xpos.Add(p.X);
+                    _ypos.Add(p.Y);
+                    _A.Add(1000);
+                    _B.Add(1000);
                 }
-                else
+
+                switch (comboBox1.SelectedIndex)
                 {
-                    List<double> _xpos = new List<double>();
-                    List<double> _ypos = new List<double>();
-                    List<double> _A = new List<double>();
-                    List<double> _B = new List<double>();
-                    foreach (Point p in _source)
-                    {
-                        _xpos.Add(p.X);
-                        _ypos.Add(p.Y);
-                        _A.Add(1000);
-                        _B.Add(1000);
-                    }
-                    switch (comboBox2.SelectedIndex)
-                    {
-                        case 2:
+                    default:
+                    case 0:
+                        // Gaussian Function Source
+                        R = new GaussianFunctionSource(_source[0].X, _source[0].Y, 1000);
+                        env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
+                        env.OnIterationEnd += OnIterationEnds;
+                        break;
 
-                            R = new MultipleGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
-                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
-                            env.OnIterationEnd += RefreshMeX;
-                            break;
-                        case 3:
-                            R = new MultipleNoisyGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
-                            env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
-                            env.OnIterationEnd += RefreshMeX;
+                    case 1:
+                        // Multiple Gaussian Function Sources
+                        R = new MultipleGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
+                        env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
+                        env.OnIterationEnd += OnIterationEnds;
+                        break;
 
-                            break;
-                        default:
-                            throw new Exception("Please Select Multiple Type Sources");
-                            
-                    }
+                    case 2:
+                        // Multiple Noise Gaussian Function Sources
+                        R = new MultipleNoisyGaussianFunctionSources(_xpos.ToArray(), _ypos.ToArray(), _A.ToArray(), _B.ToArray());
+                        env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B, R);
+                        env.OnIterationEnd += OnIterationEnds;
+                        break;
                 }
-                RefreshME2();
+
+                RefreshGraphics();
             }
-            
+
             catch (Exception exp)
             {
                 MessageBox.Show(exp.Message);
@@ -183,13 +157,14 @@ namespace Enviroment_GUI
 
         }
 
-       private void StartButton_Click(object sender, EventArgs e)
+        private void StartButton_Click(object sender, EventArgs e)
         {
+            disableStart();
             backgroundWorker1.RunWorkerAsync();
             RestartButton.Enabled = true;
         }
 
-        public void drawAgents()
+        private void drawAgents()
         {
             Graphics g = panel1.CreateGraphics();
 
@@ -199,38 +174,42 @@ namespace Enviroment_GUI
             Pen myPen = new Pen(System.Drawing.Color.Red, 1);
             myPen.DashStyle = DashStyle.Dot;
 
-            foreach (Agent i in env.Agents)
+            if (env != null && env.Agents != null)
             {
-                Rectangle myRectangle = new Rectangle((int)i.PX-((int)def[3]+1), (int)i.PY-((int)def[3]+1), (int)def[3]*2, (int)def[3]*2);
-
-                g.DrawEllipse(myPen, myRectangle);
-
-                if (i.FoundSource)
+                foreach (Agent i in env.Agents)
                 {
-                    g.DrawRectangle(p2, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
-                }
-                else
-                {
-                    if(!i.WasSending)
-                        g.DrawRectangle(p, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
+                    Rectangle myRectangle = new Rectangle((int)i.PX - ((int)def[3] + 1), (int)i.PY - ((int)def[3] + 1), (int)def[3] * 2, (int)def[3] * 2);
+
+                    g.DrawEllipse(myPen, myRectangle);
+
+                    if (i.FoundSource)
+                    {
+                        g.DrawRectangle(p2, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
+                    }
                     else
-                        g.DrawRectangle(p3, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
+                    {
+                        if (!i.WasSending)
+                            g.DrawRectangle(p, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
+                        else
+                            g.DrawRectangle(p3, new Rectangle(Convert.ToInt32(i.PX), Convert.ToInt32(i.PY), 2, 2));
+                    }
                 }
             }
         }
-        public void drawBarrier()
+
+        private void drawBarrier()
         {
             Graphics g = panel1.CreateGraphics();
 
             Pen p = new Pen(Color.Blue, 3);
             foreach (Barrier b in B)
             {
-                g.DrawLine(p, new Point(Convert.ToInt32(b.X1),Convert.ToInt32(b.Y1)),new Point(Convert.ToInt32(b.X2),Convert.ToInt32(b.Y2)));
-                //g.Dispose();
+                g.DrawLine(p, new Point(Convert.ToInt32(b.X1), Convert.ToInt32(b.Y1)), new Point(Convert.ToInt32(b.X2), Convert.ToInt32(b.Y2)));
 
             }
         }
-        public void drawSource()
+
+        private void drawSource()
         {
             Graphics g = panel1.CreateGraphics();
             Pen myPen = new Pen(System.Drawing.Color.Red, 7);
@@ -239,25 +218,25 @@ namespace Enviroment_GUI
                 Rectangle myRectangle = new Rectangle(p.X, p.Y, 7, 7);
                 g.DrawEllipse(myPen, myRectangle);
             }
-           
+
         }
 
-        public void resetInitDraw()
+        private void resetInitDraw()
         {
             GenerateButton.Enabled = false;
             StartButton.Enabled = false;
             RestartButton.Enabled = false;
             AgentsNum.Enabled = false;
-            comboBox2.Enabled = false;
+            comboBox1.Enabled = false;
             textBox1.Enabled = false;
             SourceButton.Enabled = false;
             BarrierButton.Enabled = false;
         }
 
-        public void enableInitDraw()
+        private void enableInitDraw()
         {
             GenerateButton.Enabled = true;
-            comboBox2.Enabled = true;
+            comboBox1.Enabled = true;
             AgentsNum.Enabled = true;
             textBox1.Enabled = true;
             SourceButton.Enabled = true;
@@ -266,14 +245,15 @@ namespace Enviroment_GUI
             StartButton.Enabled = false;
             RestartButton.Enabled = false;
         }
-        public void RefreshMeX()
+
+        private void OnIterationEnds()
         {
             this.Invoke((MethodInvoker)delegate
             {
-                RefreshME2();
+                RefreshGraphics();
             });
         }
-        void RefreshME2()
+        private void RefreshGraphics()
         {
             panel1.Refresh();
             drawAgents();
@@ -286,7 +266,7 @@ namespace Enviroment_GUI
         {
             readDefaultParameters();
         }
-        public void readDefaultParameters()
+        private void readDefaultParameters()
         {
             def.Add(Swarm_Logic.GeneralParameters.W);
             def.Add(Swarm_Logic.GeneralParameters.P);
@@ -304,15 +284,6 @@ namespace Enviroment_GUI
             MV_param.Text = def[5].ToString();
             MinVPram.Text = def[6].ToString();
         }
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void SourceButton_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void RestartButton_Click(object sender, EventArgs e)
         {
@@ -326,12 +297,12 @@ namespace Enviroment_GUI
             disableStart();
         }
 
-        public void enableStart()
+        private void enableStart()
         {
             StartButton.Enabled = true;
         }
 
-        public void disableStart()
+        private void disableStart()
         {
             StartButton.Enabled = false;
         }
@@ -349,7 +320,7 @@ namespace Enviroment_GUI
                 comrange = double.Parse(CR_param.Text);
                 neardistance = double.Parse(SR_param.Text);
                 Swarm_Logic.GeneralParameters.G = g;
-                Swarm_Logic.GeneralParameters.P=  b;
+                Swarm_Logic.GeneralParameters.P = b;
                 Swarm_Logic.GeneralParameters.W = w;
                 Swarm_Logic.GeneralParameters.MaxVelocity = maxv;
                 Swarm_Logic.GeneralParameters.MinVelocity = minv;
@@ -397,14 +368,17 @@ namespace Enviroment_GUI
             enableInitDraw();
         }
 
-        private void AgentsNum_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             env.Run(int.Parse(textBox1.Text));
+        }
+
+        private void EnviromentGUI_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            backgroundWorker1.CancelAsync();
+            backgroundWorker1.
+            env = null;
         }
     }
 }

@@ -54,8 +54,6 @@ namespace UIDemo
 
         List<Swarm_Logic.Barrier> br;
 
-        bool b;
-
         List<Rectangle> rect = new List<Rectangle>();
       /*  
         private void tsm(void)
@@ -110,7 +108,7 @@ namespace UIDemo
             drawSource();
             drawBarr();
         }
-         Thread t;
+
         private void button1_Click(object sender, EventArgs e)
         {
             EnvRun();
@@ -126,11 +124,6 @@ namespace UIDemo
             env.Run(1000);
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (t != null)
-                t.Abort();
-        }
 
     }
 }

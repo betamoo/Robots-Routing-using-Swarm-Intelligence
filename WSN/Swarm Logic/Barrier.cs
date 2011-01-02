@@ -6,18 +6,26 @@ namespace Swarm_Logic
     /// A class that represents a barrier, that prevents moving from one side to another.
     /// It is responsible for detecting collisions with moving agents.
     /// </summary>
-    public class Barrier
+    public struct Barrier
     {
-        // Represents the X coordinate of the first end of the barrier.
+        /// <summary>
+        /// Represents the X coordinate of the first end of the barrier.
+        /// </summary>
         public double X1 { set; get; }
 
-        // Represents the Y coordinate of the first end of the barrier.
+        /// <summary>
+        /// Represents the Y coordinate of the first end of the barrier.
+        /// </summary>
         public double Y1 { set; get; }
 
-        // Represents the X coordinate of the second end of the barrier.
+        /// <summary>
+        /// Represents the X coordinate of the second end of the barrier.
+        /// </summary>
         public double X2 { set; get; }
 
-        // Represents the Y coordinate of the second end of the barrier.
+        /// <summary>
+        /// Represents the Y coordinate of the second end of the barrier.
+        /// </summary>
         public double Y2 { set; get; }
 
         /// <summary>
@@ -28,6 +36,7 @@ namespace Swarm_Logic
         /// <param name="X2">Represents the X coordinate of the second end of the barrier.</param>
         /// <param name="Y2">Represents the Y coordinate of the second end of the barrier.</param>
         public Barrier(double X1, double Y1, double X2, double Y2)
+            : this()
         {
             this.X1 = X1;
             this.Y1 = Y1;
