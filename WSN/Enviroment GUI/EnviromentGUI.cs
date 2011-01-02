@@ -134,7 +134,7 @@ namespace Enviroment_GUI
                     switch (comboBox2.SelectedIndex)
                     {
                         case 0:
-                            R = new EuclideanDistanceSource(_source[0].X,_source[0].Y);
+                           R = new EuclideanDistanceSource(_source[0].X,_source[0].Y);
                             env = new Swarm_Logic.Environment(agentNum, MaxX, MaxY, B,R);
                             break;
                         case 1:
