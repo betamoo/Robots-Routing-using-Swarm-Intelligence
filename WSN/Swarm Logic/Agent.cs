@@ -60,40 +60,62 @@ namespace Swarm_Logic
         // The delegate of the function used by the agent to send messages to other nearby agents.
         public delegate void SendMessageFunction(Agent SendingAgent, AgentMessage Message);
 
+        /// <summary>
+        /// This function calculates a random decision.
+        /// It is used after the agent had found a radiation source, in order to wander around telling everyone else with the source position.
+        /// </summary>
         private void TakeTotalyRandomDecision()
         {
             VX = (r.NextDouble() - 0.5) * 2 * GeneralParameters.MaxVelocity;
             VY = (r.NextDouble() - 0.5) * 2 * GeneralParameters.MaxVelocity;
 
+            // Calculate the magnitude of the calculated velocity.
             double V = Math.Sqrt(VX * VX + VY * VY);
+
+            // If magnitude is zero, then make the dominator 1.0 to avoid division by zero.
             if (V == 0)
                 V = 1.0;
+            
             VX = VX / V;
             VY = VY / V;
 
+            // Ensure that the velocity is between MinVelocity and MaxVelocity inclusively.
             V = Math.Min(V, GeneralParameters.MaxVelocity);
             V = Math.Max(V, GeneralParameters.MinVelocity);
+
             VX *= V;
             VY *= V;
         }
 
-        private void TakeRandomPerpendicularDecision()
+        /// <summary>
+        /// This function calculates a random decision related to the direction opposite to the current velocity.
+        /// </summary>
+        private void TakeRandomOppositeDecision()
         {
             VX = -(r.NextDouble()) * VX;
             VY = -(r.NextDouble()) * VY;
 
+            // Calculate the magnitude of the calculated velocity.
             double V = Math.Sqrt(VX * VX + VY * VY);
+
+            // If magnitude is zero, then make the dominator 1.0 to avoid division by zero.
             if (V == 0)
                 V = 1.0;
+            
             VX = VX / V;
             VY = VY / V;
 
+            // Ensure that the velocity is between MinVelocity and MaxVelocity inclusively.
             V = Math.Min(V, GeneralParameters.MaxVelocity);
             V = Math.Max(V, GeneralParameters.MinVelocity);
+
             VX *= V;
             VY *= V;
         }
 
+        /// <summary>
+        /// This function calculates a random decision related to the direction tangent -perpendicular- to the current velocity.
+        /// </summary>
         private void TakeRandomTangentDecision()
         {
             // VX = -(r.NextDouble()) * VX;
@@ -117,14 +139,20 @@ namespace Swarm_Logic
             VX = PX + (dxn * mag);
             VY = PY + (dyn * mag);
 
+            // Calculate the magnitude of the calculated velocity.
             double V = Math.Sqrt(VX * VX + VY * VY);
+
+            // If magnitude is zero, then make the dominator 1.0 to avoid division by zero.
             if (V == 0)
                 V = 1.0;
+            
             VX = VX / V;
             VY = VY / V;
 
+            // Ensure that the velocity is between MinVelocity and MaxVelocity inclusively.
             V = Math.Min(V, GeneralParameters.MaxVelocity);
             V = Math.Max(V, GeneralParameters.MinVelocity);
+
             VX *= V;
             VY *= V;
 
@@ -212,13 +240,13 @@ namespace Swarm_Logic
         }
 
         /// <summary>
-        /// This function calculates a random decision, either parallel to or perpendicular to the current velocity,
+        /// This function calculates a random decision, either parallel to or opposite to the current velocity direction,
         /// With some randomness employed.
         /// </summary>
         public void TakeRandomDecision()
         {
             if (r.NextDouble() < 0.5)
-                TakeRandomPerpendicularDecision();
+                TakeRandomOppositeDecision();
             else
                 TakeRandomTangentDecision();
         }
