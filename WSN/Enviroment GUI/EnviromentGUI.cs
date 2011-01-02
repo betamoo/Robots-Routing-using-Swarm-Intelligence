@@ -103,6 +103,7 @@ namespace Enviroment_GUI
             {
                 int agentNum = int.Parse(AgentsNum.Text);
                 enableStart();
+
                 if (agentNum <= 0)
                     throw new Exception("Number Of Agents Must be => 1");
                 if (_source.Count == 0)
@@ -146,6 +147,7 @@ namespace Enviroment_GUI
                 }
 
                 RefreshGraphics();
+                RestartButton.Enabled = true;
             }
 
             catch (Exception exp)
@@ -377,7 +379,16 @@ namespace Enviroment_GUI
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            env.Run(int.Parse(textBox1.Text));
+            try
+            {
+                if (int.Parse(textBox1.Text) < 1)
+                    throw new Exception("Iteration must be > 0");
+                env.Run(int.Parse(textBox1.Text));
+            }
+            catch (Exception exp)
+            {
+                MessageBox.Show(exp.Message);
+            }
         }
 
         private void EnviromentGUI_FormClosing(object sender, FormClosingEventArgs e)
@@ -386,6 +397,16 @@ namespace Enviroment_GUI
             if(env!=null)
             env.OnIterationEnd -= OnIterationEnds;
             env = null;
+        }
+
+        private void back(object sender, RunWorkerCompletedEventArgs e)
+        {
+            enableStart();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
