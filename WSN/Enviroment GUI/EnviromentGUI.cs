@@ -345,6 +345,7 @@ namespace Enviroment_GUI
 
         private void Clear_Click(object sender, EventArgs e)
         {
+            
             W_param.Text = "";
             B_param.Text = "";
             G_param.Text = "";
