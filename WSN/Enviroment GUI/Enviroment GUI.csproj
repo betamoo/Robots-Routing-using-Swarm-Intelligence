@@ -48,7 +48,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alaa_test.cs" />
     <Compile Include="EnviromentGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,7 +56,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="sa3d_test.cs" />
     <EmbeddedResource Include="EnviromentGUI.resx">
       <DependentUpon>EnviromentGUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -82,10 +80,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Environment Simulation\Environment Logic.csproj">
-      <Project>{24486C1D-087C-4FA7-95FF-053D6F852BB0}</Project>
-      <Name>Environment Logic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Swarm Logic\Swarm Logic.csproj">
       <Project>{0AC614E3-33A9-47C2-8E4B-75F6BE1BB686}</Project>
       <Name>Swarm Logic</Name>
